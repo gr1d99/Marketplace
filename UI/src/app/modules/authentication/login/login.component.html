@@ -1,0 +1,59 @@
+<div class="login-container">
+  <div class="wrapper">
+    <app-card [title]="'Login'">
+    <form
+      nz-form
+      [formGroup]="form"
+      (ngSubmit)="submit()" nzLayout="vertical">
+      <div>
+        <nz-form-item>
+          <nz-form-label
+            nzFor="password"
+            nzRequired>
+            Password
+          </nz-form-label>
+          <nz-form-control
+            nzErrorTip="Password is required!">
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              nz-input />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            nzFor="email"
+            nzRequired>
+            Email
+          </nz-form-label>
+          <nz-form-control nzErrorTip="Enter a valid E-mail!">
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              nz-input />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="action-section">
+        <app-button
+          type="submit"
+          label="Login"
+          variant="primary"
+          [fullWidth]="true"
+          [loading]="loading"
+          [disabled]="loading">
+        </app-button>
+        <app-button
+          variant="link"
+          type="button"
+          label="Have and account?"
+          [disabled]="loading"
+          (onClick)="redirectToSignup()">
+        </app-button>
+      </div>
+    </form>
+  </app-card>
+  </div>
+</div>

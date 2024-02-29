@@ -1,0 +1,16 @@
+section {
+  .products-list {
+    &-header-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-actions-container {
+      display: flex;
+      button {
+        display: inline-flex;
+        align-self: flex-start;
+      }
+    }
+  }
+}

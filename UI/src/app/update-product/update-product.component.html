@@ -1,0 +1,6 @@
+<app-dashboard-header [title]="pageTitle"></app-dashboard-header>
+<app-product-form
+  submitLabel="Update Product"
+  [product]="product"
+  [submitting]="submitting"
+  (formSubmitted)="onUpdateProduct($event)"></app-product-form>
