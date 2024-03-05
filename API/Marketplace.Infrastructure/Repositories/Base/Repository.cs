@@ -8,7 +8,7 @@ namespace Marketplace.Infrastructure.Repositories.Base;
 
 public class Repository<T> : IRepository<T> where T : Entity
 {
-    private readonly DataContext _dataContext;
+    protected readonly DataContext _dataContext;
 
     public Repository(DataContext dataContext)
     {

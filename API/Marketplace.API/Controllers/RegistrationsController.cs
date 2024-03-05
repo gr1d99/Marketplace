@@ -1,9 +1,9 @@
 using System.Net.Mime;
 using Marketplace.Application.DTOs;
+using Marketplace.Application.Services;
 using Marketplace.Domain.Entities;
-using Marketplace.Dto;
-using Marketplace.Services.RegistrationService;
 using Microsoft.AspNetCore.Mvc;
+using RegistrationCreateDto = Marketplace.Application.DTOs.RegistrationCreateDto;
 
 namespace Marketplace.Controllers;
 
@@ -13,18 +13,18 @@ namespace Marketplace.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public class RegistrationsController :  ControllerBase
 {
-    private readonly IRegistrationService _registrationService;
+    private readonly IUserService _userService;
 
-    public RegistrationsController(IRegistrationService registrationService)
+    public RegistrationsController(IUserService userService)
     {
-        _registrationService = registrationService;
+        _userService = userService;
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserIdentityDto))]
     public async Task<ActionResult<UserIdentityDto>> Create([FromBody] RegistrationCreateDto data)
     {
-        var isEmailTaken = await _registrationService.EmailTaken(data.Email);
+        var isEmailTaken = await _userService.EmailTaken(data.Email);
 
         if (isEmailTaken)
         {
@@ -36,8 +36,8 @@ public class RegistrationsController :  ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        var result = await _registrationService.Create(data);
+        await _userService.Create(data);
 
-        return Ok(result);
+        return Ok();
     }
 }

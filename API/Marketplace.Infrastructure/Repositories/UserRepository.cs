@@ -14,6 +14,16 @@ public class UserRepository : Repository<UserIdentity>, IUserRepository
     public async Task<UserIdentity?> GetUserById(Guid userId)
     {
         return await GetAsync(user => user.UserIdentityId == userId);
+    } 
+    
+    public async Task<UserIdentity?> GetUserById(long userId)
+    {
+        return await GetAsync(user => user.Id == userId);
+    }
+
+    public async Task<UserIdentity?> GetUserByEmail(string email)
+    {
+        return await GetAsync(user => user.Email == email);
     }
 
     public async Task<List<UserIdentityRole>> GetUserRoles(Guid userId)
@@ -26,5 +36,11 @@ public class UserRepository : Repository<UserIdentity>, IUserRepository
         }
 
         return user.UserIdentityRoles.ToList();
+    }
+
+    public async void Create(UserIdentity user)
+    {
+        await _dataContext.AddAsync(user);
+        await _dataContext.SaveChangesAsync();
     }
 }

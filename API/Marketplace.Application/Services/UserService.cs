@@ -1,6 +1,10 @@
 using Marketplace.Application.DTOs;
+using Marketplace.Application.Enums;
+using Marketplace.Domain.Entities;
 using Marketplace.Domain.Repositories;
+using Marketplace.Helpers;
 using Marketplace.Infrastructure.Data;
+using Marketplace.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Application.Services;
@@ -9,11 +13,16 @@ public class UserService : IUserService
 {
     private readonly DataContext _dataContext;
     private readonly IPaginationService _paginationService;
+    private readonly IUserRepository _userRepository;
     
-    public UserService(DataContext dataContext, IPaginationService paginationService)
+    public UserService(
+        DataContext dataContext,
+        IPaginationService paginationService, 
+        IUserRepository userRepository)
     {
         _dataContext = dataContext;
         _paginationService = paginationService;
+        _userRepository = userRepository;
     }
     public async Task<PaginatedResponseDto<UserIdentityRoleDto>> GetUserRoles(Guid userId)
     {
@@ -73,5 +82,65 @@ public class UserService : IUserService
             Total = total,
             Results = paginated
         };
+    }
+
+    public async Task Create(RegistrationCreateDto data)
+    {
+        var user = new UserIdentity()
+        {
+            FirstName = data.FirstName,
+            LastName = data.LastName,
+            Email = data.Email,
+            PasswordHash = new BCryptHelper().Hash(data.Password)
+        };
+
+        var defaultRoleId = Convert.ToInt64(RoleEnum.USER);
+        var defaultRole = await _dataContext.Roles.FirstOrDefaultAsync(role => role.Id == defaultRoleId);
+        var identityRole = new UserIdentityRole()
+        {
+            RoleId = defaultRole?.Id ?? defaultRoleId,
+        };
+        user.UserIdentityRoles.Add(identityRole);
+        
+        _userRepository.Create(user);
+
+        await _dataContext.SaveChangesAsync();
+    }
+
+    public Task<bool> EmailTaken(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<UserIdentityDto?> GetUser(string email)
+    {
+        var user = await _userRepository.GetUserByEmail(email);
+
+        if (user is null)
+        {
+            return new UserIdentityDto()
+                { };
+        }
+
+        return new UserIdentityDto()
+        {
+            Id = user.Id,
+            UserIdentityId = user.UserIdentityId,
+            Email = user.Email
+        };
+    }
+
+    public async Task<ICollection<Role>> GetUserRoles(long id)
+    {
+        var user = await _userRepository.GetUserById(id);
+
+        if (user is null)
+        {
+            return new List<Role>();
+        }
+
+        var roles = user.UserIdentityRoles.Select(userIdentityRole => userIdentityRole.Role).ToList();
+
+        return roles;
     }
 }

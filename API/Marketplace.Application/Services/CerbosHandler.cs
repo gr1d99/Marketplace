@@ -1,13 +1,12 @@
 using Cerbos.Sdk.Builder;
 using Cerbos.Sdk.Utility;
 using Marketplace.Application.DTOs;
-using Marketplace.Dto;
+using Marketplace.Infrastructure.Authorization;
 using Marketplace.Infrastructure.Cerbos;
 using Marketplace.Infrastructure.ConfigurationOptions;
-using Marketplace.Services.UserService;
 using Microsoft.Extensions.Options;
 
-namespace Marketplace.Infrastructure.Authorization;
+namespace Marketplace.Application.Services;
 
 public class CerbosHandler : ICerbosHandler
 {

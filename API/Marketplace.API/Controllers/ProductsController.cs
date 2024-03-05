@@ -26,7 +26,6 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    [IsAuthorizedFor("product", "read")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedResponseDto<ProductDto>))]
     public async Task<ActionResult<PaginatedResponseDto<ProductDto>>> GetAll([FromQuery] ProductFilterDto query)
     {
