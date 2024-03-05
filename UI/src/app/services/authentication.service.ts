@@ -4,6 +4,7 @@ import {AuthenticatedResponse} from "../interfaces/authenticated-response";
 import {environment} from "../../environments/environment";
 import {MessageService} from "./shared/message.service";
 import {BehaviorSubject} from "rxjs";
+import {Helpers} from "../helpers";
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class AuthenticationService {
       const jwtToken = localStorage.getItem(this.jwtTokenKey);
       const refreshToken = localStorage.getItem(this.refreshTokenKey)
 
-      if (typeof jwtToken === null) {
+      if (Helpers.isNullOrUndefined(jwtToken)) {
         this.isAuthenticated.next(false);
         return;
       }
@@ -55,7 +56,7 @@ export class AuthenticationService {
       this.isAuthenticated.next(true)
       this.authToken.next(jwtToken);
 
-      if (typeof refreshToken === null) {
+      if (Helpers.isNullOrUndefined(refreshToken)) {
         return;
       }
 
