@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {AuthorizationService} from "../services/authorization.service";
+import {Helpers} from "../helpers";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,12 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authToken = this.authorizationService.getAuthToken();
 
-    if (authToken === null) {
+    if (Helpers.isNullOrUndefined(authToken)) {
       return next.handle(request);
     }
 
     const nextRequest = request.clone({
-      headers: request.headers.set('Authorization', authToken)
+      headers: request.headers.set('Authorization', `Bearer ${authToken}`)
     })
 
     return next.handle(nextRequest);

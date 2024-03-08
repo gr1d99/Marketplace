@@ -10,7 +10,6 @@ using Marketplace.Services.AuthService;
 using Marketplace.Services.CategoryService;
 using Marketplace.Services.Pagination;
 using Marketplace.Services.ProductService;
-using Marketplace.Services.RegistrationService;
 using Marketplace.Services.NotificationService;
 
 // APM
@@ -20,12 +19,11 @@ using Elastic.Apm.NetCoreAll;
 using Hangfire;
 using Hangfire.SqlServer;
 using Marketplace.Application;
-using Marketplace.Infrastructure.Authorization;
+using Marketplace.Domain.Entities;
 using Marketplace.Extensions;
-using Marketplace.Infrastructure.Cerbos;
+using Marketplace.Infrastructure;
 using Marketplace.Infrastructure.ConfigurationOptions;
 using Marketplace.Services;
-using Marketplace.Services.UserService;
 using Marketplace.Infrastructure.Data;
 using Marketplace.Services.AuthServiceService;
 
@@ -121,20 +119,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHangfireServer();
 builder.Services.AddAuthorization();
 
-builder.Services.AddSingleton<ICerbosProvider, CerbosProvider>();
-builder.Services.AddScoped<ICerbosHandler, CerbosHandler>();
 builder.Services.AddScoped<IPaginationService, PaginationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductStatusService, ProductStatusService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IRegistrationService, RegistrationsService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRefreshTokenCleanupService, RefreshTokenCleanupService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRequestLogService, RequestLogService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddMarketPlaceApplication();
+builder.Services.AddMarketplaceInfrastructure();
 
 // IOptions
 builder.Services.Configure<CerbosOptions>(
@@ -176,7 +171,8 @@ app.MapControllers();
 using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
     var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    var db = serviceScope.ServiceProvider.GetRequiredService<DataContext>().Database;
+    var ctx = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+    var db = ctx.Database;
 
     logger.LogInformation("Migrating database...");
 
@@ -184,13 +180,25 @@ using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>(
     {
         logger.LogInformation("Database not ready yet; waiting...");
         Thread.Sleep(1000);
-        db = serviceScope.ServiceProvider.GetRequiredService<DataContext>().Database;
+        ctx = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+        db = ctx.Database;
     }
 
     try
     {
         serviceScope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
         logger.LogInformation("Database migrated successfully.");
+        
+        db.EnsureCreated();
+
+        var role = ctx.Roles.FirstOrDefault(b => b.Name == "USER");
+        if (role == null)
+        {
+            ctx.Roles.Add(new Role() { Name = "USER", Description = "Default Role for all Users" });
+            logger.LogInformation("Default Role Seeded!");
+        }
+
+        ctx.SaveChanges();
     }
     catch (Exception ex)
     {

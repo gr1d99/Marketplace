@@ -1,0 +1,49 @@
+---
+apiVersion: "api.cerbos.dev/v1"
+derivedRoles:
+  # This is where we name the group of roles we are defining by enhancing those
+  # roles that are coming with the principal objects.
+  name: product_derived_roles
+  definitions:
+    
+    # If the principal belongs to group `admin` in a request, then it is considered
+    # as `admin` within Cerbos for the policy evaluation.
+    - name: admin
+      parentRoles: ["admin"]
+    
+    # If the principal belongs to group `dev` or `qa` in a request, then it is
+    # considered as `tester` within Cerbos for the policy evaluation.
+    - name: owner
+      parentRoles: ["user"]
+      condition: 
+        match: 
+          expr: request.resource.attr.CreatedById == request.principal.id
+
+#    # If the principal belongs to group `employee` in a request, and the `resource`s
+#    # `owner` attribute matches the `principal`s id, then the principal is treated
+#    # with the enhanced role of `employee_that_owns_the_record` for the policy
+#    # evaluation.
+#    - name: employee_that_owns_the_record
+#      parentRoles: ["employee"]
+#      condition:
+#        match:
+#          expr: request.resource.attr.owner == request.principal.id
+#    
+#    # Any principal that belongs to group `employee` in a request is treated as 
+#    # `any_employee` role for the policy evaluation.
+#    - name: any_employee
+#      parentRoles: ["employee"]
+#    
+#    # If the principal belongs to group `manager` in a request, and the `resource`s
+#    # `geography` attribute matches the `principal`s `geography` attribute OR, the
+#    # `resource`s 'geography' attribute matches one of the `managed_georgraphies`
+#    # attribute of the `principal`, then the `principal` is treated with the role
+#    # of `direct_manager` for the policy evaluation. 
+#    - name: direct_manager
+#      parentRoles: ["manager"]
+#      condition:
+#        match:
+#          any:
+#            of:
+#              - expr: request.resource.attr.geography == request.principal.attr.geography
+#              - expr: request.resource.attr.geography in request.principal.attr.managed_geographies

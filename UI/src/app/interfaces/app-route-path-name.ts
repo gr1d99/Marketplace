@@ -1,1 +1,1 @@
-export type AppRoutePathName = 'login' | 'signup' | 'error' | 'index'
+export type AppRoutePathName = 'login' | 'signup' | 'error' | 'index' | 'logout' | 'auth'

@@ -4,6 +4,7 @@ import { RoutingModule } from './routing/routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
 import {RegistrationModule} from "./registration/registration.module";
 import {LoginModule} from "./login/login.module";
+import {LogoutModule} from "./logout/logout.module";
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import {LoginModule} from "./login/login.module";
     RoutingModule,
     ReactiveFormsModule,
     RegistrationModule,
-    LoginModule
+    LoginModule,
+    LogoutModule
   ]
 })
 export class AuthenticationModule { }

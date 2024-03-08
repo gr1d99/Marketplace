@@ -23,8 +23,6 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService) {
   }
 
-
-
   submit() {
     const { valid } = this.form;
 
@@ -46,12 +44,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.isAuthenticated.subscribe(isAuthenticated => {
-      if (!isAuthenticated) {
-        return;
+      if (isAuthenticated) {
+        this.router.navigate([APP_ROUTES.index])
       }
 
       // redirect to appropriate page
-      this.router.navigate([APP_ROUTES.index])
     })
   }
 }

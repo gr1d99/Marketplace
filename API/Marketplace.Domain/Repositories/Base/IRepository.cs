@@ -5,6 +5,9 @@ namespace Marketplace.Domain.Repositories.Base;
 
 public interface IRepository<T> where T : Entity
 {
-    public Task<T?> GetByIdAsync(int id);
-    public Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
+    IQueryable<T> FindAll();
+    IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+    void Create(T entity);
+    void Update(T entity);
+    void Delete(T entity);
 }

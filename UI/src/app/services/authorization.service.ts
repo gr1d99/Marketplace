@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   public getAuthToken() {
-    return null;
+    return this.authService.authToken.value;
   }
 }
