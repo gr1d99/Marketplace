@@ -1,0 +1,12 @@
+<li nz-menu-item nzMatchRouterExact *ngIf="item && !item.hasChildren">
+    <span style="padding-right: 0.2rem" *ngIf="item.hasIcon" nz-icon nzType="{{item.icon}}"></span>
+    <a routerLinkActive routerLink="{{item.path}}">{{item.name}}</a>
+</li>
+<li nz-submenu [nzTitle]="item.name" [nzIcon]="item.hasIcon ? item.icon! : ''" *ngIf="item && item.hasChildren">
+    <ul *ngFor="let childItem of item.children">
+        <li nz-menu-item>
+            <span style="padding-right: 0.2rem" *ngIf="childItem.hasIcon" nz-icon nzType="{{childItem.icon}}"></span>
+            <a routerLinkActive routerLink="{{childItem.path}}">{{childItem.name}}</a>
+        </li>
+    </ul>
+</li>

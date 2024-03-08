@@ -1,0 +1,11 @@
+<div>
+    <div routerLink="/dashboard" class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" *ngFor="let navItem of navItems">
+        <app-nav-item [item]="navItem"></app-nav-item>
+    </ul>
+</div>
+<div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+        <app-nav-item [item]="secondaryNavItems"></app-nav-item>
+    </ul>
+</div>

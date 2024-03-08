@@ -44,6 +44,8 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
 import {NzResultModule} from "ng-zorro-antd/result";
 import {AuthInterceptor} from "./http-interceptors/auth-interceptor";
 import {ErrorInterceptor} from "./http-interceptors/error-interceptor.service";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NavItemComponent } from './components/nav-item/nav-item.component';
 
 registerLocaleData(en);
 
@@ -56,7 +58,9 @@ registerLocaleData(en);
     CreateProductComponent,
     UpdateProductComponent,
     DashboardHeaderComponent,
-    NotFoundComponentComponent
+    NotFoundComponentComponent,
+    SidebarComponent,
+    NavItemComponent
   ],
   imports: [
     // APM
