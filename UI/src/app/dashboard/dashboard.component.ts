@@ -27,8 +27,8 @@ export class DashboardComponent {
     },
   ]
 
-  secondarNavItems: NavItem = {
-    path: Helpers.generateRouteFromSegments(["/", APP_ROUTES.auth, "/", APP_ROUTES.logout]),
+  secondaryNavItems: NavItem = {
+    path: Helpers.generateRouteFromSegments("/", APP_ROUTES.auth, "/", APP_ROUTES.logout),
     hasIcon: true,
     icon: 'logout',
     name: 'Logout'

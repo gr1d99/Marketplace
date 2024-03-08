@@ -38,6 +38,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.jwtTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     this.isAuthenticated.next(false);
+    this.messageService.successMessage('You have been logged out!');
     return this.isAuthenticated.asObservable();
   }
 
