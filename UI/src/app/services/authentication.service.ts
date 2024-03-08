@@ -34,6 +34,13 @@ export class AuthenticationService {
     })
   }
 
+  public logoutUser() {
+    localStorage.removeItem(this.jwtTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
+    this.isAuthenticated.next(false);
+    return this.isAuthenticated.asObservable();
+  }
+
   private storeTokens(tokens: AuthenticatedResponse) {
     const { jwtToken, refreshToken } = tokens;
     localStorage.setItem(this.jwtTokenKey, jwtToken);

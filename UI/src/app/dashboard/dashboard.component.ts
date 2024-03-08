@@ -1,5 +1,9 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import {APP_ROUTES} from "../shared/constanst";
+import {Helpers} from "../helpers";
+
+interface NavItem { path: string, hasIcon: boolean, name: string, icon?: string }
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +12,7 @@ import {Router} from "@angular/router";
 })
 
 export class DashboardComponent {
-  navItems: { path: string, hasIcon: boolean, name: string, icon?: string }[] = [
+  navItems: NavItem[] = [
     {
       path: '/dashboard',
       hasIcon: true,
@@ -22,6 +26,13 @@ export class DashboardComponent {
       name: 'Products'
     },
   ]
+
+  secondarNavItems: NavItem = {
+    path: Helpers.generateRouteFromSegments(["/", APP_ROUTES.auth, "/", APP_ROUTES.logout]),
+    hasIcon: true,
+    icon: 'logout',
+    name: 'Logout'
+  }
 
   constructor(private router: Router) {
   }

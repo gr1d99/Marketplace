@@ -44,13 +44,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.isAuthenticated.subscribe(isAuthenticated => {
-      console.log({login: isAuthenticated})
-      if (!isAuthenticated) {
-        return;
+      if (isAuthenticated) {
+        this.router.navigate([APP_ROUTES.index])
       }
 
       // redirect to appropriate page
-      this.router.navigate([APP_ROUTES.index])
     })
   }
 }

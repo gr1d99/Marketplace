@@ -1,12 +1,22 @@
 <nz-layout class="layout">
   <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
-    <div routerLink="/dashboard" class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" *ngFor="let navItem of navItems">
-      <li nz-menu-item>
-        <span style="padding-right: 0.2rem" *ngIf="navItem.hasIcon" nz-icon nzType="{{navItem.icon}}"></span>
-        <a routerLinkActive="['aaa']" routerLink="{{navItem.path}}">{{navItem.name}}</a>
-      </li>
-    </ul>
+      <div>
+          <div routerLink="/dashboard" class="logo"></div>
+          <ul nz-menu nzTheme="dark" nzMode="inline" *ngFor="let navItem of navItems">
+              <li nz-menu-item>
+                  <span style="padding-right: 0.2rem" *ngIf="navItem.hasIcon" nz-icon nzType="{{navItem.icon}}"></span>
+                  <a routerLinkActive="['aaa']" routerLink="{{navItem.path}}">{{navItem.name}}</a>
+              </li>
+          </ul>
+      </div>
+      <div>
+          <ul nz-menu nzTheme="dark" nzMode="inline">
+              <li nz-menu-item>
+                  <span style="padding-right: 0.2rem" *ngIf="secondarNavItems.hasIcon" nz-icon nzType="{{secondarNavItems.icon}}"></span>
+                  <a routerLinkActive="['aaa']" routerLink="{{secondarNavItems.path}}">{{secondarNavItems.name}}</a>
+              </li>
+          </ul>
+      </div>
   </nz-sider>
   <nz-layout>
     <nz-content>
