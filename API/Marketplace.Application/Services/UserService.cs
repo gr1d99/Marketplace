@@ -4,7 +4,6 @@ using Marketplace.Domain.Entities;
 using Marketplace.Domain.Repositories;
 using Marketplace.Helpers;
 using Marketplace.Infrastructure.Data;
-using Marketplace.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Application.Services;
@@ -102,19 +101,26 @@ public class UserService : IUserService
         };
         user.UserIdentityRoles.Add(identityRole);
         
-        _userRepository.Create(user);
+        _userRepository.InsertUserIdentity(user);
 
         await _dataContext.SaveChangesAsync();
     }
 
-    public Task<bool> EmailTaken(string email)
+    public async Task<bool> EmailTaken(string email)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetUserIdentityByEmail(email).FirstOrDefaultAsync();
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        return true;
     }
 
-    public async Task<UserIdentityDto?> GetUser(string email)
+    public async Task<UserIdentityDto> GetUser(string email)
     {
-        var user = await _userRepository.GetUserByEmail(email);
+        var user = await _userRepository.GetUserIdentityByEmail(email).FirstOrDefaultAsync();
 
         if (user is null)
         {
@@ -132,15 +138,15 @@ public class UserService : IUserService
 
     public async Task<ICollection<Role>> GetUserRoles(long id)
     {
-        var user = await _userRepository.GetUserById(id);
+        var queryable = _userRepository.GetUserIdentityById(id).Include(user => user.UserIdentityRoles);
+        
+        var user = await queryable.FirstOrDefaultAsync();
 
         if (user is null)
         {
             return new List<Role>();
         }
 
-        var roles = user.UserIdentityRoles.Select(userIdentityRole => userIdentityRole.Role).ToList();
-
-        return roles;
+        return user.UserIdentityRoles.Select(userIdentityRole => userIdentityRole.Role).ToList();
     }
 }

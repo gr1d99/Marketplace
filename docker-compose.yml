@@ -31,7 +31,7 @@ services:
       context: .
       dockerfile: ./API/Marketplace.API/Dockerfile
     depends_on: 
-      - sqlserver
+      - marketplace-db
     restart: unless-stopped
   marketplace-db:
     user: root

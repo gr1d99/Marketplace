@@ -1,0 +1,8 @@
+services: 
+  server:
+    image: ghcr.io/cerbos/cerbos:0.32.0
+    ports:
+      - 3592:3592
+    container_name: cerbos-dev
+    volumes:
+      - ./policies:/policies

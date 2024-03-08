@@ -8,20 +8,17 @@ namespace Marketplace.Infrastructure.Repositories.Base;
 
 public class Repository<T> : IRepository<T> where T : Entity
 {
-    protected readonly DataContext _dataContext;
-
-    public Repository(DataContext dataContext)
+    protected readonly DataContext _dataContext; 
+    public Repository(DataContext dataContext) 
     {
-        _dataContext = dataContext;
+        _dataContext = dataContext; 
     }
-
-    public virtual async Task<T?> GetByIdAsync(int id)
-    {
-        return await _dataContext.Set<T>().FindAsync(id);
-    }
-
-    public virtual Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
-    {
-        return _dataContext.Set<T>().FirstOrDefaultAsync(predicate);
-    }
+    public IQueryable<T> FindAll() => _dataContext.Set<T>().AsNoTracking();
+    public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) => 
+        _dataContext.Set<T>().Where(expression).AsNoTracking();
+    public void Create(T entity) => _dataContext.Set<T>().Add(entity);
+    public void Update(T entity) => _dataContext.Set<T>().Update(entity);
+    public void Delete(T entity) => _dataContext.Set<T>().Remove(entity);
+    public void Save() => _dataContext.SaveChanges();
+    public Task SaveAsync() => _dataContext.SaveChangesAsync();
 }
