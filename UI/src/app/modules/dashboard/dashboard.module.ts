@@ -12,6 +12,7 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
   declarations: [
       SidebarComponent,
       NavItemComponent,
+      DashboardComponent
   ],
     imports: [
         CommonModule,

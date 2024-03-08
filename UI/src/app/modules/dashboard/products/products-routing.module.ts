@@ -4,7 +4,7 @@ import { ProductsComponent } from './products.component';
 import {CreateComponent} from "./create/create.component";
 
 const routes: Routes = [
-    // { path: '', component: ProductsComponent },
+    { path: '', component: ProductsComponent },
   // { path: 'create', component: CreateComponent }
 ];
 
