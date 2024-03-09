@@ -43,6 +43,7 @@ import {NzResultModule} from "ng-zorro-antd/result";
 import {AuthInterceptor} from "./http-interceptors/auth-interceptor";
 import {ErrorInterceptor} from "./http-interceptors/error-interceptor.service";
 import {DashboardModule} from "./modules/dashboard/dashboard.module";
+import {DashboardHeaderComponent} from "./components/dashboard-header/dashboard-header.component";
 
 registerLocaleData(en);
 
@@ -50,10 +51,11 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     ProductFormComponent,
-    // ProductsTableComponent,
+    ProductsTableComponent,
     // CreateProductComponent,
     // UpdateProductComponent,
     NotFoundComponentComponent,
+      DashboardHeaderComponent
   ],
   imports: [
     // APM

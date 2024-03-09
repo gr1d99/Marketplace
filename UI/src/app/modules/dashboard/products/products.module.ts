@@ -10,7 +10,6 @@ import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzSpaceModule} from "ng-zorro-antd/space";
 import {NzTableModule} from "ng-zorro-antd/table";
-import {NzTransitionPatchModule} from "ng-zorro-antd/core/transition-patch/transition-patch.module";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
 import {DashboardHeaderComponent} from "../../../components/dashboard-header/dashboard-header.component";
 import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
@@ -18,7 +17,7 @@ import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
 
 @NgModule({
   declarations: [
-    // ProductsComponent,
+    ProductsComponent,
     // CreateComponent,
     // DashboardHeaderComponent
   ],
@@ -31,9 +30,8 @@ import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
     NzPopconfirmModule,
     NzSpaceModule,
     NzTableModule,
-    NzTransitionPatchModule,
-    NzWaveModule,
-    NzPageHeaderModule
+    // NzWaveModule,
+    // NzPageHeaderModule
   ]
 })
 export class ProductsModule { }
