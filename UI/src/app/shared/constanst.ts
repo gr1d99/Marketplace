@@ -6,5 +6,6 @@ export const APP_ROUTES: {[key in AppRoutePathName]: string} = {
   signup: 'signup',
   error: 'error',
   logout: 'logout',
-  auth: 'auth'
+  auth: 'auth',
+  dashboardCategories: 'dashboard/categories'
 }

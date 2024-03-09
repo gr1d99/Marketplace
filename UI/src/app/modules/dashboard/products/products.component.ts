@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PaginatedResponse} from "../../../interfaces/paginated-response";
-import {Product} from "../../../products-table/interfaces/product";
+import {Product} from "../../../interfaces/product";
 import {Router} from "@angular/router";
 import {ProductsService} from "../../../services/products.service";
 import {MessageService} from "../../../services/shared/message.service";
@@ -15,7 +15,7 @@ type ProductParams = {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   pageTitle = "Products"
   loading = true;
   deletingProduct = false;

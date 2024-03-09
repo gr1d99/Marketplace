@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {Helpers} from "../../helpers";
-import {APP_ROUTES} from "../../shared/constanst";
-import {NavItem} from "../../interfaces/nav-item";
+import {Helpers} from "../../../../helpers";
+import {APP_ROUTES} from "../../../../shared/constanst";
+import {NavItem} from "../../../../interfaces/nav-item";
 
 @Component({
   selector: 'app-sidebar',
@@ -23,16 +23,22 @@ export class SidebarComponent {
       name: 'Products'
     },
     {
+      path: Helpers.generateRouteFromSegments('/', APP_ROUTES.dashboardCategories),
       hasIcon: true,
       icon: 'group',
-      name: 'Categories',
-      hasChildren: true,
-      children: [{
-        path: '/dashboard/categories/create',
-        hasIcon: false,
-        name: 'Create',
-      }]
-    }
+      name: 'Categories'
+    },
+    // {
+    //   hasIcon: true,
+    //   icon: 'group',
+    //   name: 'Categories',
+    //   hasChildren: true,
+    //   children: [{
+    //     path: '/dashboard/categories/create',
+    //     hasIcon: false,
+    //     name: 'Create',
+    //   }]
+    // }
   ]
 
   secondaryNavItems: NavItem = {

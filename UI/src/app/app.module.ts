@@ -18,7 +18,6 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import {NzMenuModule} from "ng-zorro-antd/menu";
 import {NzIconModule} from "ng-zorro-antd/icon";
-import { ProductsTableComponent } from './products-table/products-table.component';
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzTypographyModule} from "ng-zorro-antd/typography";
@@ -43,19 +42,16 @@ import {NzResultModule} from "ng-zorro-antd/result";
 import {AuthInterceptor} from "./http-interceptors/auth-interceptor";
 import {ErrorInterceptor} from "./http-interceptors/error-interceptor.service";
 import {DashboardModule} from "./modules/dashboard/dashboard.module";
-import {DashboardHeaderComponent} from "./components/dashboard-header/dashboard-header.component";
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductFormComponent,
-    ProductsTableComponent,
+    // ProductFormComponent,
     // CreateProductComponent,
     // UpdateProductComponent,
     NotFoundComponentComponent,
-      DashboardHeaderComponent
   ],
   imports: [
     // APM
@@ -116,7 +112,7 @@ registerLocaleData(en);
   ],
   exports: [
     CardComponent,
-    ButtonComponent
+    ButtonComponent,
   ],
   bootstrap: [AppComponent]
 })

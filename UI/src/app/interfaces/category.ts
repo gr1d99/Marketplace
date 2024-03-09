@@ -3,4 +3,5 @@ export interface Category {
   readonly categoryId: string;
   name: string;
   description: string;
+  deletedAt: string
 }

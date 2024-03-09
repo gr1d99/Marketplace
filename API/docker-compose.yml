@@ -26,7 +26,7 @@ services:
     user: root
     networks: [ proxy ]
     image:  ${DOCKER_REGISTRY-}marketplace.db
-    container_name: Marketplace.Database
+    container_name: Marketplace.API.Database
     build:
       context: ./Marketplace.Database
       dockerfile: Dockerfile

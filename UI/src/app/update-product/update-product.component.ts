@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../services/products.service";
-import {Product} from "../products-table/interfaces/product";
+import {Product} from "../interfaces/product";
 import {MessageService} from "../services/shared/message.service";
 import {Location} from "@angular/common";
 
