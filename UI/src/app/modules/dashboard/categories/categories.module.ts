@@ -12,6 +12,7 @@ import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzTableModule} from "ng-zorro-antd/table";
+import {ModalComponent} from "../../../components/modal/modal.component";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NzTableModule} from "ng-zorro-antd/table";
         NzIconModule,
         NzPopconfirmModule,
         NzTableModule,
+        ModalComponent,
     ]
 })
 export class CategoriesModule { }

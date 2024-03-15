@@ -11,6 +11,7 @@ import {CategoriesService} from "../../../services/categories.service";
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent {
+  showCreateModal = true;
   pageTitle = "Categories"
   categories: PaginatedResponse<Category> = {
     page: 1,
@@ -62,4 +63,5 @@ export class CategoriesComponent {
   }
 
   deleteCategory(categoryId: string) {}
+  cal() {}
 }
