@@ -52,7 +52,7 @@
     </nz-table>
 </section>
 <app-modal
-        [isVisible]="categoryModalVisisble"
+        [isVisible]="categoryModalVisible"
         [handleCancel]="cancel"
         [handleOk]="cancel"
         [title]="'Add new Category'"
@@ -60,6 +60,7 @@
         [isOkLoading]="loading">
     <app-category-form
             (onSubmit)="handleCreate($event)"
-            [loading]="loading">
+            [loading]="loading"
+            [categoryCreatedEvent]="categoryCreatedEvent">
     </app-category-form>
 </app-modal>

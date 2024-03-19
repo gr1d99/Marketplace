@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {PaginatedResponse} from "../../../interfaces/paginated-response";
 import {Category, CategoryFormData} from "../../../interfaces/category";
 import {TableParams} from "../../../interfaces/table-params";
 import {NzTableQueryParams} from "ng-zorro-antd/table";
 import {CategoriesService} from "../../../services/categories.service";
 import {Subject} from "rxjs";
+import {MessageService} from "../../../services/shared/message.service";
 
 @Component({
   selector: 'app-categories',
@@ -25,13 +26,16 @@ export class CategoriesComponent {
   }
   loading: boolean = true;
   deletingCategory: boolean = false;
-  categoryModalVisisble: Subject<boolean> = new Subject<boolean>();
+  categoryModalVisible: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private categoriesService: CategoriesService) {
+  @Output() categoryCreatedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  constructor(private categoriesService: CategoriesService,
+              private messagesService: MessageService) {
   }
 
   onAddCategoryClick() {
-    this.categoryModalVisisble.next(true);
+    this.categoryModalVisible.next(true);
   }
 
   onQueryParamsChange(params: NzTableQueryParams) {
@@ -66,22 +70,24 @@ export class CategoriesComponent {
 
   deleteCategory(categoryId: string) {}
   cancel = () => {
-    this.categoryModalVisisble.next(false);
+    this.categoryModalVisible.next(false);
   }
 
   handleCreate(data: CategoryFormData) {
     this.loading = true;
 
     this.categoriesService.create(data).subscribe({
-      next: (response) => {
+      next: () => {
+        this.messagesService.successMessage('Category created successfully!')
         this.loadCategories(this.categoryParams);
+        this.categoryCreatedEvent.emit(true);
+        this.categoryModalVisible.next(false);
       },
-      error: (error) => {
-        console.log({error})
+      error: () => {
+        this.loading = false;
       },
       complete: () => {
         this.loading = false;
-        console.log({ h: this.loading })
       }
     })
   }

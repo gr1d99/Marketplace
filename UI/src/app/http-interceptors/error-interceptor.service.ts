@@ -47,6 +47,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.authService.logoutUser();
         return this.router.navigate([APP_ROUTES.login])
       }
+      case 500: {
+        this.messageService.errorMessage('Something went wrong!')
+        return;
+      }
       default: {
         return
       }
