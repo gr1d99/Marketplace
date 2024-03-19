@@ -12,7 +12,7 @@ namespace Marketplace.Controllers;
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
-    public readonly ICategoryService _categoryService;
+    private readonly ICategoryService _categoryService;
     private readonly ILogger<CategoriesController> _logger;
 
     public CategoriesController(ICategoryService categoryService, ILogger<CategoriesController> logger)
@@ -47,15 +47,14 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
-    [IsAuthorizedFor("category", "create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<CategoryDto>> Create([FromBody] CategoryCreateDto data)
     {
+        
         var result = await _categoryService.Create(data);
-
+        
         return CreatedAtAction(nameof(Show), new { categoryId = result.CategoryId }, result);
     }
 }

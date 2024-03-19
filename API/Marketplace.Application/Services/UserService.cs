@@ -138,7 +138,9 @@ public class UserService : IUserService
 
     public async Task<ICollection<Role>> GetUserRoles(long id)
     {
-        var queryable = _userRepository.GetUserIdentityById(id).Include(user => user.UserIdentityRoles);
+        // var queryable = _userRepository.GetUserIdentityById(id).Include(user => user.UserIdentityRoles);
+        var queryable = _userRepository.GetUserIdentityById(id).Include(user => user.UserIdentityRoles)
+            .ThenInclude(userIdentityRole => userIdentityRole.Role);
         
         var user = await queryable.FirstOrDefaultAsync();
 

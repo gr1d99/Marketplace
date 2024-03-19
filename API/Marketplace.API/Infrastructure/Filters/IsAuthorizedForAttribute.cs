@@ -43,9 +43,10 @@ public class IsAuthorizedForAttribute : ActionFilterAttribute
             {
                 Message = "Not allowed!"
             });
+
             return;
         }
-        
-        context.HttpContext.Response.StatusCode = StatusCodes.Status200OK;
+
+        await next();
     }
 }

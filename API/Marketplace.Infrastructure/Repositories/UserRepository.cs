@@ -2,6 +2,7 @@ using Marketplace.Domain.Entities;
 using Marketplace.Domain.Repositories;
 using Marketplace.Infrastructure.Data;
 using Marketplace.Infrastructure.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Infrastructure.Repositories;
 
