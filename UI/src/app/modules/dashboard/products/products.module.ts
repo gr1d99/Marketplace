@@ -19,20 +19,22 @@ import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {ButtonComponent} from "../../../components/button/button.component";
 import {DashboardModule} from "../dashboard.module";
+import {CreateProductComponent} from "./create-product/create-product.component";
+import {CardComponent} from "../../../components/card/card.component";
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
-      ProductFormComponent,
-    // CreateComponent,
+    ProductFormComponent,
+    CreateProductComponent,
   ],
   imports: [
     CommonModule,
-      // router
+    // router
     ProductsRoutingModule,
 
-      // nz-zorro
+    // nz-zorro
     NzButtonModule,
     NzDividerModule,
     NzIconModule,
@@ -47,11 +49,12 @@ import {DashboardModule} from "../dashboard.module";
     NzInputNumberModule,
     NzSelectModule,
 
-      // custom
+    // custom
     ButtonComponent,
 
-      // shared
+    // shared
     DashboardModule,
+    CardComponent,
   ]
 })
 export class ProductsModule { }

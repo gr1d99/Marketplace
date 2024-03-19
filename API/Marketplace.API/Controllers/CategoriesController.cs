@@ -52,7 +52,6 @@ public class CategoriesController : ControllerBase
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<CategoryDto>> Create([FromBody] CategoryCreateDto data)
     {
-        
         var result = await _categoryService.Create(data);
         
         return CreatedAtAction(nameof(Show), new { categoryId = result.CategoryId }, result);
