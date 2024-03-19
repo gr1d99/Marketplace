@@ -51,6 +51,15 @@
         </tbody>
     </nz-table>
 </section>
-<app-modal [isVisible]="showCreateModal" [handleCancel]="cal" [handleOk]="cal">
-    <div>Hey</div>
+<app-modal
+        [isVisible]="categoryModalVisisble"
+        [handleCancel]="cancel"
+        [handleOk]="cancel"
+        [title]="'Add new Category'"
+        [showFooter]="false"
+        [isOkLoading]="loading">
+    <app-category-form
+            (onSubmit)="handleCreate($event)"
+            [loading]="loading">
+    </app-category-form>
 </app-modal>

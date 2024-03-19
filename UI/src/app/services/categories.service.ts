@@ -18,4 +18,8 @@ export class CategoriesService extends ApiServiceBase {
   getCategories(params?: HttpGetParams) {
     return this.httpApi.get<PaginatedResponse<Category>>(this.getUrlWithParams(this.baseUrl, params))
   }
+
+  create(params: Pick<Category, 'name' | 'description'>) {
+    return this.httpApi.post<Category>(this.baseUrl, params);
+  }
 }

@@ -9,11 +9,14 @@ import {Observable, tap} from 'rxjs';
 import {APP_ROUTES} from "../shared/constanst";
 import {Router} from "@angular/router";
 import {MessageService} from "../services/shared/message.service";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router, private messageService: MessageService) {}
+  constructor(private router: Router,
+              private messageService: MessageService,
+              private authService: AuthenticationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
@@ -39,7 +42,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.messageService.errorMessage(error?.message || "Forbidden")
         return this.router.navigate([APP_ROUTES.login])
       }
-
+      case 401: {
+        this.messageService.errorMessage('Your session has expired!')
+        this.authService.logoutUser();
+        return this.router.navigate([APP_ROUTES.login])
+      }
       default: {
         return
       }

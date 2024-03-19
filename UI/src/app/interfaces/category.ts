@@ -5,3 +5,4 @@ export interface Category {
   description: string;
   deletedAt: string
 }
+export type CategoryFormData = Required<Pick<Category, 'name' | 'description'>>;

@@ -13,12 +13,18 @@ import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {ModalComponent} from "../../../components/modal/modal.component";
+import { CategoryFormComponent } from './components/category-form/category-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {ButtonComponent} from "../../../components/button/button.component";
+import {NzInputModule} from "ng-zorro-antd/input";
 
 
 @NgModule({
   declarations: [
     CategoriesComponent,
     CreateComponent,
+    CategoryFormComponent,
   ],
     imports: [
         CommonModule,
@@ -32,6 +38,10 @@ import {ModalComponent} from "../../../components/modal/modal.component";
         NzPopconfirmModule,
         NzTableModule,
         ModalComponent,
+        ReactiveFormsModule,
+        NzFormModule,
+        ButtonComponent,
+        NzInputModule,
     ]
 })
 export class CategoriesModule { }
