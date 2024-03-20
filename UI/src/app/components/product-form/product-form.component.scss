@@ -1,0 +1,13 @@
+form {
+  nz-divider.ant-divider {
+    margin-top: 2rem;
+  }
+
+  nz-divider.ant-divider:first-child {
+    margin-top: 0;
+  }
+
+  app-button {
+    width: 100%;
+  }
+}
