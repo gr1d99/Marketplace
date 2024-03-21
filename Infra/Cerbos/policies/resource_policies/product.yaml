@@ -10,14 +10,14 @@ resourcePolicy:
         - read
       effect: EFFECT_ALLOW
       roles:
-        - user
+        - USER
 
     - actions:
         - update
-        - delete
+        - destroy
       effect: EFFECT_ALLOW
       derivedRoles:
-        - owner
+        - product_owner
 
     - actions:
         - create

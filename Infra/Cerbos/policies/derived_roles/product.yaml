@@ -13,8 +13,8 @@ derivedRoles:
     
     # If the principal belongs to group `dev` or `qa` in a request, then it is
     # considered as `tester` within Cerbos for the policy evaluation.
-    - name: owner
-      parentRoles: ["user"]
+    - name: product_owner
+      parentRoles: ["USER","ADMIN"]
       condition: 
         match: 
           expr: request.resource.attr.CreatedById == request.principal.id
