@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using Marketplace.Application.DTOs;
 
-namespace Marketplace.Dto;
+namespace Marketplace.Application.DTOs;
 
 public class ProductDto
 {

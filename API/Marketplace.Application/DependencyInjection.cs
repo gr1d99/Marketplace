@@ -1,4 +1,5 @@
 using Marketplace.Application.Services;
+using Marketplace.Application.Services.ProductService;
 using Marketplace.Infrastructure.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ public static class DependencyInjection
         services.AddScoped<IPaginationService, PaginationService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICerbosHandler, CerbosHandler>();
+        services.AddScoped<IProductService, ProductService>();
 
         return services;
     }

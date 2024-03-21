@@ -1,6 +1,6 @@
-namespace Marketplace.Infrastructure.Authorization;
+using Marketplace.Application.DTOs;
 
 public interface ICerbosHandler
 {
-    public Task<bool> Handle(string email, string resource, params string[] actions); 
+    public Task<bool> Handle(AuthorizationDto data); 
 }

@@ -1,11 +1,9 @@
 using Marketplace.Application.DTOs;
 using Marketplace.Domain.Entities;
-using Marketplace.Dto;
 using Marketplace.Infrastructure.Data;
-using Marketplace.Services.Pagination;
 using Microsoft.EntityFrameworkCore;
 
-namespace Marketplace.Services.ProductService;
+namespace Marketplace.Application.Services.ProductService;
 
 public class ProductService : IProductService
 {
@@ -40,7 +38,7 @@ public class ProductService : IProductService
 
     public async Task<ProductDto?> Show(Guid productId)
     {
-        var product = await ProductQueryableWithDefaultScopes().AsNoTracking()
+        var product = await ProductQueryableWithDefaultScopes()
             .Where(t => t.ProductId == productId)
             .Include(product => product.Category)
             .Include(product => product.ProductStatus)
@@ -193,7 +191,6 @@ public class ProductService : IProductService
     {
         return ProductQueryable()
             .OrderBy(product => product.Id)
-            .Where(product => includeDeleted ? product.DeletedAt == null || product.DeletedAt != null : product.DeletedAt == null)
             .Include(product => product.Category)
             .Include(product => product.ProductStatus);
     }

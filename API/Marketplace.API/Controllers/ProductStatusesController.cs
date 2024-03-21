@@ -1,8 +1,8 @@
 using System.Net.Mime;
 using Marketplace.Application.DTOs;
+using Marketplace.Application.Services.ProductService;
 using Marketplace.Dto;
 using Marketplace.Infrastructure.Filters;
-using Marketplace.Services.ProductService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

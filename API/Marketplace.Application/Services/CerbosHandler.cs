@@ -1,6 +1,7 @@
 using Cerbos.Sdk.Builder;
 using Cerbos.Sdk.Utility;
 using Marketplace.Application.DTOs;
+using Marketplace.Application.Services.ProductService;
 using Marketplace.Infrastructure.Authorization;
 using Marketplace.Infrastructure.Cerbos;
 using Marketplace.Infrastructure.ConfigurationOptions;
@@ -11,44 +12,34 @@ namespace Marketplace.Application.Services;
 public class CerbosHandler : ICerbosHandler
 {
     private readonly ICerbosProvider _cerbosProvider;
-    private readonly IUserService _userService;
-    private readonly CerbosOptions _options;
+    private readonly IProductService _productService;
 
-    public CerbosHandler(ICerbosProvider cerbosProvider, IUserService userService, IOptions<CerbosOptions> options)
+    public CerbosHandler(ICerbosProvider cerbosProvider, IProductService productService)
     {
         _cerbosProvider = cerbosProvider;
-        _userService = userService;
-        _options = options.Value;
+        _productService = productService;
     }
 
-    public async Task<bool> Handle(string userEmail, string resource, params string[] actions)
+    public async Task<bool> Handle(AuthorizationDto data)
     {
         var client = _cerbosProvider.Client();
-        var user = await _userService.GetUser(userEmail);
 
-        if (user is null)
-        {
-            return false;
-        }
-
-        var userRoles = await _userService.GetUserRoles(user.Id);
-        var principalRoles = userRoles.Select(role => role.Name).ToArray();
-        var requestResource = RequestPrincipal(user);
-
+        var resourceAttributes = await GetAttributesFor(data);
         var request = CheckResourcesRequest.NewInstance().WithRequestId(RequestId.Generate()).WithIncludeMeta(true)
             .WithPrincipal(
-                Principal.NewInstance(requestResource.Id, principalRoles)
-                    .WithPolicyVersion(requestResource.PolicyVersion)
+                Principal.NewInstance(data.RequestPrincipal.Id, data.Roles)
+                    .WithPolicyVersion(data.RequestPrincipal.PolicyVersion)
             ).WithResourceEntries(
-                ResourceEntry.NewInstance(resource, requestResource.Id)
-                    .WithPolicyVersion(requestResource.PolicyVersion)
-                    .WithActions(actions.ToArray())
+                ResourceEntry.NewInstance(data.Kind, data.RequestPrincipal.Id)
+                    .WithAttributes(resourceAttributes)
+                    .WithPolicyVersion(data.RequestPrincipal.PolicyVersion)
+                    .WithActions(data.Actions)
             );
-        
 
-        var result = client.CheckResources(request).Find(requestResource.Id);
 
-        bool isAllowed = actions.All(action => result.IsAllowed(action));
+        var result = client.CheckResources(request).Find(data.RequestPrincipal.Id);
+
+        bool isAllowed = data.Actions.All(action => result.IsAllowed(action));
 
         if (isAllowed is false)
         {
@@ -58,14 +49,31 @@ public class CerbosHandler : ICerbosHandler
         return true;
     }
 
-    private IRequestPrincipal RequestPrincipal(UserIdentityDto user)
+    private async Task<Dictionary<string, AttributeValue>> GetAttributesFor(AuthorizationDto data)
     {
-        IRequestPrincipal result = new RequestPrincipal()
+        switch (data.Kind)
         {
-            Id = Convert.ToString(user.Id),
-            PolicyVersion = _options.PolicyVersion
-        };
+            case "product":
+            {
+                var metaData = data.Metadata;
 
-        return result;
+                var productKeyPair = metaData.FirstOrDefault(d => d.Key == "productId");
+                var productId = Guid.Parse(productKeyPair.Value);
+                var product = await _productService.Show(productId);
+
+                return new Dictionary<string, AttributeValue>()
+                {
+                    {
+                        "CreatedById", AttributeValue.StringValue(product?.CreatedById.ToString() ?? 0.ToString())
+                    }
+                };
+            }
+
+            default:
+            {
+                return new Dictionary<string, AttributeValue>()
+                    { };
+            }
+        }
     }
 }

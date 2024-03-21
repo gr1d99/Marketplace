@@ -1,7 +1,6 @@
 using Marketplace.Application.DTOs;
-using Marketplace.Dto;
 
-namespace Marketplace.Services.ProductService;
+namespace Marketplace.Application.Services.ProductService;
 
 public interface IProductStatusService
 {

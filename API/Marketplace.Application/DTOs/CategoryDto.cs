@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Marketplace.Application.DTOs;
 
-namespace Marketplace.Dto;
+namespace Marketplace.Application.DTOs;
 
 public class CategoryDto
 {

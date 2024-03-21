@@ -1,11 +1,9 @@
 using Marketplace.Application.DTOs;
 using Marketplace.Domain.Entities;
-using Marketplace.Dto;
 using Marketplace.Infrastructure.Data;
-using Marketplace.Services.Pagination;
 using Microsoft.EntityFrameworkCore;
 
-namespace Marketplace.Services.ProductService;
+namespace Marketplace.Application.Services.ProductService;
 
 public class ProductStatusService : IProductStatusService
 {

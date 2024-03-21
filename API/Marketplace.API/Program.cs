@@ -9,7 +9,6 @@ using System.Text;
 using Marketplace.Services.AuthService;
 using Marketplace.Services.CategoryService;
 using Marketplace.Services.Pagination;
-using Marketplace.Services.ProductService;
 using Marketplace.Services.NotificationService;
 
 // APM
@@ -19,12 +18,14 @@ using Elastic.Apm.NetCoreAll;
 using Hangfire;
 using Hangfire.SqlServer;
 using Marketplace.Application;
+using Marketplace.Application.Services.ProductService;
 using Marketplace.Domain.Entities;
 using Marketplace.Extensions;
 using Marketplace.Infrastructure;
 using Marketplace.Infrastructure.ConfigurationOptions;
 using Marketplace.Services;
 using Marketplace.Infrastructure.Data;
+using Marketplace.Infrastructure.Filters;
 using Marketplace.Services.AuthServiceService;
 
 // logging
@@ -120,7 +121,6 @@ builder.Services.AddHangfireServer();
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IPaginationService, PaginationService>();
-builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductStatusService, ProductStatusService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -128,6 +128,7 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRefreshTokenCleanupService, RefreshTokenCleanupService>();
 builder.Services.AddScoped<IRequestLogService, RequestLogService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IsAuthorizedForAttribute>();
 builder.Services.AddMarketPlaceApplication();
 builder.Services.AddMarketplaceInfrastructure();
 
