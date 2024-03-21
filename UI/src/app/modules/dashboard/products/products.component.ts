@@ -48,10 +48,15 @@ export class ProductsComponent implements OnInit {
         .getProducts(params)
         .subscribe(data => {
               this.products = data
+              console.log('cc2')
+
             }, () => {
+              console.log('ccs')
+
               return
             },
             () => {
+          console.log('cc')
               this.loading = false;
             })
   }
@@ -77,6 +82,7 @@ export class ProductsComponent implements OnInit {
       error: (err: any) => {
         console.log({err})
         this.message.errorMessage("The selected product was not deleted, try again!")
+        this.deletingProduct = false;
       },
       complete: () => {
         this.deletingProduct = false;

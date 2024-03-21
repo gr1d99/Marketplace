@@ -10,6 +10,7 @@ import {APP_ROUTES} from "../shared/constanst";
 import {Router} from "@angular/router";
 import {MessageService} from "../services/shared/message.service";
 import {AuthenticationService} from "../services/authentication.service";
+import {Helpers} from "../helpers";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -33,6 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   public handleHTTPResponse(response: HttpErrorResponse) {
     const { status, error } = response;
+    const loginPath = Helpers.commonRoutes.authLogin
 
     switch (status) {
       case 0: {
@@ -40,12 +42,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
       case 403: {
         this.messageService.errorMessage(error?.message || "Forbidden")
-        return this.router.navigate([APP_ROUTES.login])
+        return this.router.navigate([loginPath])
       }
       case 401: {
         this.messageService.errorMessage('Your session has expired!')
         this.authService.logoutUser();
-        return this.router.navigate([APP_ROUTES.login])
+        return this.router.navigate([loginPath])
       }
       case 500: {
         this.messageService.errorMessage('Something went wrong!')

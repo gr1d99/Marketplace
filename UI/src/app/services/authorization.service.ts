@@ -7,8 +7,4 @@ import {AuthenticationService} from "./authentication.service";
 export class AuthorizationService {
 
   constructor(private authService: AuthenticationService) { }
-
-  public getAuthToken() {
-    return this.authService.authToken.value;
-  }
 }

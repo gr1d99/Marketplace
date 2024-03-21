@@ -6,7 +6,6 @@ const isNullOrUndefined = (value: null | undefined | string) => {
 }
 
 const generateRouteFromSegments = (...segments: string[]) => {
-    console.log({segments})
     return segments.reduce((acc, currentValue) => {
         return acc.concat(currentValue)
     }, '')

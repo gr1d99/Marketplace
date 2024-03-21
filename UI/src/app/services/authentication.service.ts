@@ -15,15 +15,15 @@ export class AuthenticationService {
   private baseUrl = environment.ApiBaseUrl
   private url = this.baseUrl + '/auth'
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public authToken: BehaviorSubject<null | string> = new BehaviorSubject<string | null>(null);
   public refreshToken: BehaviorSubject<null | string> = new BehaviorSubject<string | null>(null);
   constructor(private httpService: HttpApiService,
               private messageService: MessageService) {
     this.checkAuthentication()
   }
 
-  public isLoggedIn() {
-    return this.isAuthenticated.asObservable()
+
+  public authToken (): string | null {
+    return localStorage.getItem(this.jwtTokenKey);
   }
 
   public authenticate(payload: { email: string, password: string }) {
@@ -44,11 +44,11 @@ export class AuthenticationService {
 
   private storeTokens(tokens: AuthenticatedResponse) {
     const { jwtToken, refreshToken } = tokens;
+
     localStorage.setItem(this.jwtTokenKey, jwtToken);
     localStorage.setItem(this.refreshTokenKey, refreshToken);
-    this.isAuthenticated.next(true);
 
-    return this.isAuthenticated.asObservable();
+    this.isAuthenticated.next(true);
   }
 
   private checkAuthentication() {
@@ -61,8 +61,7 @@ export class AuthenticationService {
         return;
       }
 
-      this.isAuthenticated.next(true)
-      this.authToken.next(jwtToken);
+      this.isAuthenticated.next(true);
 
       if (Helpers.isNullOrUndefined(refreshToken)) {
         return;
