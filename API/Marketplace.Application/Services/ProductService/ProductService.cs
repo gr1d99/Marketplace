@@ -54,19 +54,36 @@ public class ProductService : IProductService
 
     public async Task<ProductDto?> Update(Guid productId, ProductDto data)
     {
-        var product = await ProductQueryableWithDefaultScopes().AsNoTracking()
-            .FirstOrDefaultAsync(product => product.ProductId == productId);
+        var product = await _dataContext
+            .Products
+            .FirstOrDefaultAsync(
+                product => product.ProductId == productId);
 
         if (product is null)
         {
             return null;
         }
         
-        _dataContext.Entry(ToProduct(data)).State = EntityState.Modified;
+        product.Id = product.Id;
+        product.Name = data.Name;
+        product.Description = data.Description;
+        product.Price = data.Price;
+        product.DiscountedPrice = data.DiscountedPrice;
+        product.ProductStatusId = data.ProductStatusId;
+        product.CategoryId = data.CategoryId;
 
-        await _dataContext.SaveChangesAsync();
+        _dataContext.Entry(product).State = EntityState.Modified;
+        
+        try
+        {
 
-        return GetProductDto(product);
+            await _dataContext.SaveChangesAsync();
+            return GetProductDto(product);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            throw;
+        }
     }
     
     public async Task<bool> Exists(Guid productId)

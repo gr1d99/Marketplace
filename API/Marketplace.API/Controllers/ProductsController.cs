@@ -64,7 +64,7 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{productId:guid}")]
+    [HttpPut("{productId}")]
     [Authorize]
     [IsAuthorizedFor("product", "update")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
