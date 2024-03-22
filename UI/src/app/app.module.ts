@@ -14,7 +14,6 @@ import  { ApmService, ApmModule, ApmErrorHandler } from "@elastic/apm-rum-angula
 
 import { NzLayoutModule } from "ng-zorro-antd/layout";
 
-import { ProductFormComponent } from './components/product-form/product-form.component';
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import {NzMenuModule} from "ng-zorro-antd/menu";
 import {NzIconModule} from "ng-zorro-antd/icon";
@@ -30,8 +29,6 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 import {NzMessageModule} from "ng-zorro-antd/message";
-// import { CreateProductComponent } from './create-product/create-product.component';
-// import { UpdateProductComponent } from './update-product/update-product.component';
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import { ButtonComponent } from './components/button/button.component';
 import {AuthenticationModule} from "./modules/authentication/authentication.module";
@@ -48,9 +45,6 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
-    // ProductFormComponent,
-    // CreateProductComponent,
-    // UpdateProductComponent,
     NotFoundComponentComponent,
   ],
   imports: [
@@ -87,10 +81,11 @@ registerLocaleData(en);
     NzMessageModule,
     NzPopconfirmModule,
     NzCardModule,
-    CardComponent,
-    ButtonComponent,
     NzResultModule,
+
+    // Custom components
     ButtonComponent,
+    CardComponent,
   ],
   providers: [
     ApmService,

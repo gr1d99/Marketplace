@@ -50,7 +50,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         return this.router.navigate([loginPath])
       }
       case 500: {
-        this.messageService.errorMessage('Something went wrong!')
         return;
       }
       default: {

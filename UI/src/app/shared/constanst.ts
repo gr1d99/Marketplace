@@ -7,5 +7,6 @@ export const APP_ROUTES: {[key in AppRoutePathName]: string} = {
   error: 'error',
   logout: 'logout',
   auth: 'auth',
-  dashboardCategories: 'dashboard/categories'
+  dashboardCategories: 'dashboard/categories',
+  dashboardProducts: 'dashboard/products'
 }

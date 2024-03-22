@@ -43,7 +43,8 @@ export class HttpApiService {
       console.groupEnd()
     } else {
       // server side error
-      errorMessage = `Status Code: ${error.status} - Message: ${error.message}`
+      // errorMessage = `Status Code: ${error.status} - Message: ${error.message}`
+      errorMessage = `Something went wrong`
       console.group('Server Side Error')
       console.warn(error)
       console.groupEnd()

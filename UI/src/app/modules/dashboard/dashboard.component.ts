@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {DashboardService} from "../../services/dashboard.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent {
-  constructor(private router: Router) {
+export class DashboardComponent implements OnInit {
+  constructor(public dashboardService: DashboardService) {
+  }
+
+  ngOnInit(): void {
   }
 }

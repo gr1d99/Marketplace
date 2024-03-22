@@ -1,5 +1,5 @@
-import {Category} from "../../interfaces/category";
-import {ProductStatus} from "../../interfaces/product-status";
+import {Category} from "../../../../interfaces/category";
+import {ProductStatus} from "../../../../interfaces/product-status";
 
 export interface Product {
   readonly id: number;

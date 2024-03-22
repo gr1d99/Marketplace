@@ -9,16 +9,17 @@ import {NzIconModule} from "ng-zorro-antd/icon";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
 import {DashboardHeaderComponent} from "./components/dashboard-header/dashboard-header.component";
+import {NzSpinModule} from "ng-zorro-antd/spin";
 
 @NgModule({
     declarations: [
         SidebarComponent,
         NavItemComponent,
         DashboardComponent,
-        DashboardHeaderComponent
+        DashboardHeaderComponent,
     ],
     exports: [
-        DashboardHeaderComponent
+        DashboardHeaderComponent,
     ],
     imports: [
         CommonModule,
@@ -26,7 +27,8 @@ import {DashboardHeaderComponent} from "./components/dashboard-header/dashboard-
         NzLayoutModule,
         NzMenuModule,
         NzIconModule,
-        NzPageHeaderModule
+        NzPageHeaderModule,
+        NzSpinModule
     ]
 })
 export class DashboardModule { }
