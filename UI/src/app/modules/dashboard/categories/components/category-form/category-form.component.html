@@ -36,7 +36,7 @@
     <div class="action-section">
         <app-button
                 type="submit"
-                label="Create Category"
+                [label]="(isUpdate ? 'Update' : 'Create') + ' Category'"
                 variant="primary"
                 [fullWidth]="true"
                 [loading]="loading"

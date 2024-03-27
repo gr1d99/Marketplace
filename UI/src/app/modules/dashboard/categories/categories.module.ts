@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { CategoriesComponent } from './categories.component';
-import { CreateComponent } from './create/create.component';
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzSpaceModule} from "ng-zorro-antd/space";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
@@ -18,13 +17,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {ButtonComponent} from "../../../components/button/button.component";
 import {NzInputModule} from "ng-zorro-antd/input";
+import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 
 @NgModule({
   declarations: [
     CategoriesComponent,
-    CreateComponent,
     CategoryFormComponent,
+    UpdateCategoryComponent,
+    CreateCategoryComponent,
   ],
     imports: [
         CommonModule,

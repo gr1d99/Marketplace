@@ -2,22 +2,19 @@ apiVersion: api.cerbos.dev/v1
 resourcePolicy:
   version: "dev"
   resource: "category"
-  # importDerivedRoles:
-  #   - product_derived_roles
   rules:
     - actions:
         - create
-        # - read
       effect: EFFECT_ALLOW
       roles:
         - USER
 
-    # - actions:
-    #     - update
-    #     - delete
-    #   effect: EFFECT_ALLOW
-    #   derivedRoles:
-    #     - owner
+    - actions:
+        - update
+        - destroy
+      effect: EFFECT_ALLOW
+      roles:
+        - USER
 
     # - actions:
     #     - create

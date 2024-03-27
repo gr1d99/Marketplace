@@ -7,6 +7,7 @@ public class CategoryDto
     public long Id { get; set; }
     public Guid CategoryId { get; set; } = Guid.Empty;
     public string Name { get; set; } = String.Empty;
+    public DateTime? DeletedAt { get; set; }
     public string Description { get; set; } = String.Empty;
 }
 

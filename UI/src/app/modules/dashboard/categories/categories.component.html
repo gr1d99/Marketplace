@@ -5,7 +5,7 @@
                 class="products-list-add-product-btn"
                 nz-button
                 nzType="primary"
-                (click)="onAddCategoryClick()">Add Category</button>
+                (click)="onAddUpdateCategoryClick()">Add Category</button>
     </nz-space>
 </app-dashboard-header>
 <section class="categories-list">
@@ -39,7 +39,7 @@
         </span>
             </td>
             <td>
-                <a [routerLink]="['/dashboard/categories', data.categoryId, 'update']">Edit</a>
+                <a (click)="onAddUpdateCategoryClick('UPDATE', data.categoryId)">Edit</a>
                 <nz-divider nzType="vertical"></nz-divider>
                 <a
                         nz-popconfirm
@@ -55,12 +55,15 @@
         [isVisible]="categoryModalVisible"
         [handleCancel]="cancel"
         [handleOk]="cancel"
-        [title]="'Add new Category'"
+        [title]="categoryModalTitle"
         [showFooter]="false"
         [isOkLoading]="loading">
-    <app-category-form
-            (onSubmit)="handleCreate($event)"
-            [loading]="loading"
-            [categoryCreatedEvent]="categoryCreatedEvent">
-    </app-category-form>
+    <app-create-category
+            *ngIf="(categoryAction | async) === 'CREATE'"
+            (onCategoryChange)="categoryChanged($event)">
+    </app-create-category>
+    <app-update-category
+            *ngIf="(categoryAction | async) === 'UPDATE'"
+            (onCategoryChange)="categoryChanged($event)">
+    </app-update-category>
 </app-modal>

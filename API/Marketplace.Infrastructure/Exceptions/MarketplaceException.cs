@@ -1,4 +1,4 @@
-namespace Marketplace.Exceptions;
+namespace Marketplace.Infrastructure.Exceptions;
 
 public class MarketplaceException : Exception
 {

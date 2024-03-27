@@ -3,6 +3,7 @@ using Marketplace.Domain.Data;
 using Marketplace.Domain.Entities;
 using Marketplace.Exceptions;
 using Marketplace.Infrastructure.Data;
+using Marketplace.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Services.AuthService;

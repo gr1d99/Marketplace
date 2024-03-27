@@ -1,21 +1,26 @@
 using Marketplace.Application.DTOs;
 using Marketplace.Domain.Entities;
-using Marketplace.Dto;
+using Marketplace.Domain.Repositories;
 using Marketplace.Infrastructure.Data;
-using Marketplace.Services.Pagination;
+using Marketplace.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Marketplace.Services.CategoryService;
+namespace Marketplace.Application.Services.CategoryService;
 
 public class CategoryService : ICategoryService
 {
     private readonly DataContext _dataContext;
-    private readonly IPaginationService _paginationService; 
+    private readonly IPaginationService _paginationService;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public CategoryService(DataContext dataContext, IPaginationService paginationService)
+    public CategoryService(
+        DataContext dataContext,
+        IPaginationService paginationService,
+        ICategoryRepository categoryRepository)
     {
         _dataContext = dataContext;
         _paginationService = paginationService;
+        _categoryRepository = categoryRepository;
     }
 
     public async Task<CategoryDto?> Show(Guid categoryId)
@@ -50,6 +55,39 @@ public class CategoryService : ICategoryService
         };
     }
 
+    public async Task Update(Guid categoryId, CategoryCreateDto data)
+    {
+        var category = await _categoryRepository.Get(categoryId);
+
+        if (category is null)
+        {
+            throw new MarketplaceException($"Category with id = {categoryId} not found");
+        }
+
+        category.Name = data.Name;
+        category.Description = data?.Description ?? "";
+        
+        _categoryRepository.UpdateCategory(category);
+
+        await _dataContext.SaveChangesAsync();
+    }
+    
+    public async Task Delete(Guid categoryId)
+    {
+        var category = await _categoryRepository.Get(categoryId);
+
+        if (category is null)
+        {
+            throw new MarketplaceException($"Category with id = {categoryId} not found");
+        }
+
+        category.DeletedAt = DateTime.Now;
+        
+        _categoryRepository.UpdateCategory(category);
+
+        await _dataContext.SaveChangesAsync();
+    }
+
     public async Task<PaginatedResponseDto<CategoryDto>> GetAll(CategoryFilterDto query)
     {
         var queryable = CategoryQueryable()
@@ -62,6 +100,7 @@ public class CategoryService : ICategoryService
             CategoryId = category.CategoryId,
             Name = category.Name,
             Description = category.Description,
+            DeletedAt = category.DeletedAt
         }).ToListAsync();
         
         return new PaginatedResponseDto<CategoryDto>()

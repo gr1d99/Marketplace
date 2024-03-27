@@ -7,7 +7,6 @@ using System.Text;
 
 // Service
 using Marketplace.Services.AuthService;
-using Marketplace.Services.CategoryService;
 using Marketplace.Services.Pagination;
 using Marketplace.Services.NotificationService;
 
@@ -18,6 +17,7 @@ using Elastic.Apm.NetCoreAll;
 using Hangfire;
 using Hangfire.SqlServer;
 using Marketplace.Application;
+using Marketplace.Application.Services.CategoryService;
 using Marketplace.Application.Services.ProductService;
 using Marketplace.Domain.Entities;
 using Marketplace.Extensions;
@@ -122,7 +122,6 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IPaginationService, PaginationService>();
 builder.Services.AddScoped<IProductStatusService, ProductStatusService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRefreshTokenCleanupService, RefreshTokenCleanupService>();

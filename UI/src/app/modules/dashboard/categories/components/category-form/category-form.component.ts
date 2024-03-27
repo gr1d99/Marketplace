@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {FormBuilder, Validators} from "@angular/forms";
 import {CategoryFormData} from "../../../../../interfaces/category";
 import {FormService} from "../../../../../services/shared/form.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-category-form',
@@ -9,13 +10,15 @@ import {FormService} from "../../../../../services/shared/form.service";
   styleUrls: ['./category-form.component.scss']
 })
 export class CategoryFormComponent implements OnInit, OnDestroy {
+  isUpdate: boolean = false;
   form = this.formBuilder.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]]
   })
   @Input() loading: boolean = false;
+  @Input() initialData: Subject<CategoryFormData> = new Subject<CategoryFormData>();
   @Output() onSubmit: EventEmitter<CategoryFormData> = new EventEmitter();
-  @Input() categoryCreatedEvent: EventEmitter<boolean> = new EventEmitter();
+  @Input() formActionSuccess: Subject<boolean> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private formService: FormService) {
@@ -31,14 +34,23 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.categoryCreatedEvent.subscribe((created) => {
+    this.formActionSuccess.subscribe((created) => {
       if (created) {
         this.form.reset();
+      }
+    })
+
+    this.initialData.subscribe(value => {
+      if (value?.name || value?.description) {
+        this.isUpdate = true;
+        this.form.patchValue(value);
       }
     })
   }
 
   ngOnDestroy(): void {
-    this.categoryCreatedEvent.unsubscribe();
+    this.isUpdate = false;
+    this.formActionSuccess.unsubscribe();
+    this.initialData.unsubscribe();
   }
 }

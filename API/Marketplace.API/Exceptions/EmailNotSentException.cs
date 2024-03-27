@@ -1,3 +1,5 @@
+using Marketplace.Infrastructure.Exceptions;
+
 namespace Marketplace.Exceptions;
 
 public class EmailNotSentException : MarketplaceException

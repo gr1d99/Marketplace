@@ -1,8 +1,7 @@
 using System.Net.Mime;
 using Marketplace.Application.DTOs;
-using Marketplace.Dto;
+using Marketplace.Application.Services.CategoryService;
 using Marketplace.Infrastructure.Filters;
-using Marketplace.Services.CategoryService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +29,7 @@ public class CategoriesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("categoryId")]
+    [HttpGet("{categoryId}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CategoryDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -47,6 +46,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -55,5 +55,42 @@ public class CategoriesController : ControllerBase
         var result = await _categoryService.Create(data);
         
         return CreatedAtAction(nameof(Show), new { categoryId = result.CategoryId }, result);
+    }
+
+    [Authorize]
+    [HttpPut("{categoryId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<CategoryDto>> Update(Guid categoryId, [FromBody] CategoryCreateDto data)
+    {
+        try
+        {
+            await _categoryService.Update(categoryId, data);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
+    }
+
+    [Authorize]
+    [IsAuthorizedFor("category")]
+    [HttpDelete("{categoryId}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<CategoryDto>> Destroy(Guid categoryId)
+    {
+        try
+        {
+            await _categoryService.Delete(categoryId);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 }
