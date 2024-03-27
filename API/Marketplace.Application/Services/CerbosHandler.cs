@@ -55,18 +55,28 @@ public class CerbosHandler : ICerbosHandler
         {
             case "product":
             {
+                Dictionary<string, AttributeValue> result = new Dictionary<string, AttributeValue>();
+
                 var metaData = data.Metadata;
 
-                var productKeyPair = metaData.FirstOrDefault(d => d.Key == "productId");
-                var productId = Guid.Parse(productKeyPair.Value);
-                var product = await _productService.Show(productId);
+                var isReadWrite = data.Actions.Contains("destroy") || data.Actions.Contains("update");
 
-                return new Dictionary<string, AttributeValue>()
+                if (isReadWrite)
                 {
+                    KeyValuePair<string, string> productKeyPair = metaData
+                        .FirstOrDefault(d => d.Key == "productId");
+
+                    Guid.TryParse(productKeyPair.Value, out var productId);
+
+                    if (productId != Guid.Empty)
                     {
-                        "CreatedById", AttributeValue.StringValue(product?.CreatedById.ToString() ?? 0.ToString())
+                        var product = await _productService.Show(productId);
+                        result.Add("CreatedById", AttributeValue.StringValue(product?.CreatedById.ToString() ?? 0.ToString()));
                     }
-                };
+                }
+
+
+                return result;
             }
 
             default:

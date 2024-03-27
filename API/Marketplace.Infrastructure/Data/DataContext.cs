@@ -1,6 +1,7 @@
 using Marketplace.Domain.Data.Configurations;
 using Marketplace.Domain.Entities;
 using Marketplace.Infrastructure.Data.Configurations;
+using Marketplace.Infrastructure.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Infrastructure.Data;
@@ -33,5 +34,7 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserIdentityRoleConfiguration());
+        modelBuilder.SeedProductStatus();
+        modelBuilder.SeedRoles();
     }
 }

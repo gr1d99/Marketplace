@@ -2,5 +2,5 @@
 
 public enum RoleEnum
 {
-    USER = 1
+    User = 1001
 }

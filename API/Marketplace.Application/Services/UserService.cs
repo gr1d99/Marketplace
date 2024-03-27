@@ -93,7 +93,7 @@ public class UserService : IUserService
             PasswordHash = new BCryptHelper().Hash(data.Password)
         };
 
-        var defaultRoleId = Convert.ToInt64(RoleEnum.USER);
+        var defaultRoleId = Convert.ToInt64(RoleEnum.User);
         var defaultRole = await _dataContext.Roles.FirstOrDefaultAsync(role => role.Id == defaultRoleId);
         var identityRole = new UserIdentityRole()
         {

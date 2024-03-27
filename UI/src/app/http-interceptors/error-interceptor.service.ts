@@ -41,8 +41,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         return this.router.navigate([APP_ROUTES.error])
       }
       case 403: {
-        this.messageService.errorMessage(error?.message || "Forbidden")
-        return this.router.navigate([loginPath])
+        // this.messageService.errorMessage(error?.message || "Forbidden")
+        // return this.router.navigate([loginPath])
+        return;
       }
       case 401: {
         this.messageService.errorMessage('Your session has expired!')

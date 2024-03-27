@@ -97,7 +97,7 @@ builder.Services.AddDbContext<DataContext>(options =>
         {
             sqlServerOptionsAction.MigrationsAssembly("Marketplace.Infrastructure");
             sqlServerOptionsAction.EnableRetryOnFailure(10, TimeSpan.FromSeconds(5), null);
-        }));
+        }).EnableSensitiveDataLogging());
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -189,17 +189,6 @@ using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>(
     {
         serviceScope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
         logger.LogInformation("Database migrated successfully.");
-        
-        db.EnsureCreated();
-
-        var role = ctx.Roles.FirstOrDefault(b => b.Name == "USER");
-        if (role == null)
-        {
-            ctx.Roles.Add(new Role() { Name = "USER", Description = "Default Role for all Users" });
-            logger.LogInformation("Default Role Seeded!");
-        }
-
-        ctx.SaveChanges();
     }
     catch (Exception ex)
     {

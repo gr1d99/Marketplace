@@ -13,5 +13,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.HasMany<UserIdentityRole>(role => role.UserIdentityRoles)
             .WithOne(userIdentityRole => userIdentityRole.Role)
             .HasForeignKey(userIdentityRole => userIdentityRole.RoleId);
+        builder.HasData(new Role() { Id = 1001, Name = "USER", Description = "Default Role for all Users" });
     }
 }

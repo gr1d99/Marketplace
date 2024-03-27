@@ -6,6 +6,7 @@ import {MessageService} from "../../../../services/shared/message.service";
 import {Router} from "@angular/router";
 import {FormService} from "../../../../services/shared/form.service";
 import {APP_ROUTES} from "../../../../shared/constanst";
+import {Helpers} from "../../../../helpers";
 
 @Component({
   selector: 'app-signup',
@@ -76,10 +77,10 @@ export class SignupComponent implements OnInit {
   handleSuccess() {
     this.messages.successMessage('User registered successfully!')
     this.form.reset();
-    this.router.navigate(['auth/login'])
+    this.router.navigate([Helpers.commonRoutes.authLogin])
   }
 
   navigateToLogin() {
-    this.router.navigate([APP_ROUTES.login])
+    this.router.navigate([Helpers.commonRoutes.authLogin])
   }
 }
