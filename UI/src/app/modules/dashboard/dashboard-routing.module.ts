@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
+import {authGuard} from "../../guards/auth.guard";
 
 const routes: Routes = [
     { path: "dashboard", component: DashboardComponent, children: [
@@ -9,7 +10,8 @@ const routes: Routes = [
             // { path: 'products', component: ProductsTableComponent, title: 'Products' },
             // { path: 'products/create', component: CreateProductComponent, title: 'New Product' },
             // { path: 'products/:id/update', component: UpdateProductComponent, title: 'Update Product' }
-        ]
+        ],
+        canActivate: [authGuard]
     },
 ]
 

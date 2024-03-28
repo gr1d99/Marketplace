@@ -3,8 +3,9 @@ import {HttpApiService} from "../core/services/http-api.service";
 import {AuthenticatedResponse} from "../interfaces/authenticated-response";
 import {environment} from "../../environments/environment";
 import {MessageService} from "./shared/message.service";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, tap} from "rxjs";
 import {Helpers} from "../helpers";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,15 @@ export class AuthenticationService {
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public refreshToken: BehaviorSubject<null | string> = new BehaviorSubject<string | null>(null);
   constructor(private httpService: HttpApiService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.checkAuthentication()
   }
 
+  public get isLoggedIn() {
+    return this.isAuthenticated.getValue();
+  }
 
   public authToken (): string | null {
     return localStorage.getItem(this.jwtTokenKey);
@@ -30,7 +36,17 @@ export class AuthenticationService {
     return this.httpService.post<AuthenticatedResponse>(this.url, payload).subscribe((response) => {
       this.messageService.successMessage("Logged in!")
 
-      return this.storeTokens(response);
+      const redirectUrl = this.route.snapshot.queryParams?.['next'];
+
+      this.storeTokens(response);
+
+      if (redirectUrl) {
+        this.router.navigateByUrl(redirectUrl)
+
+        return;
+      }
+
+      return;
     })
   }
 
