@@ -34,6 +34,8 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserIdentityRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new VendorConfiguration());
+        modelBuilder.ApplyConfiguration(new VendorProductConfiguration());
         modelBuilder.SeedProductStatus();
         modelBuilder.SeedRoles();
     }

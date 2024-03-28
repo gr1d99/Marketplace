@@ -28,6 +28,12 @@ export class SidebarComponent {
       icon: 'group',
       name: 'Categories'
     },
+    {
+      path: Helpers.generateRouteFromSegments('/', APP_ROUTES.dashboardVendors),
+      hasIcon: true,
+      icon: 'shop',
+      name: 'Vendors'
+    },
     // {
     //   hasIcon: true,
     //   icon: 'group',

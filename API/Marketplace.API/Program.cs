@@ -139,7 +139,10 @@ var app = builder.Build();
 
 app.UseForwardedHeaders();
 
-app.UseAllElasticApm(builder.Configuration);
+if (app.Environment.IsProduction())
+{
+    app.UseAllElasticApm(builder.Configuration);
+}
 
 if (app.Environment.IsDevelopment())
 {

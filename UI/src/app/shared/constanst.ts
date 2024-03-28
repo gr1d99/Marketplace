@@ -8,5 +8,6 @@ export const APP_ROUTES: {[key in AppRoutePathName]: string} = {
   logout: 'logout',
   auth: 'auth',
   dashboardCategories: 'dashboard/categories',
-  dashboardProducts: 'dashboard/products'
+  dashboardProducts: 'dashboard/products',
+  dashboardVendors: 'dashboard/vendors'
 }

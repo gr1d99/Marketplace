@@ -7,5 +7,6 @@ export type AppRoutePathName =
     | 'auth'
     | 'dashboardCategories'
     | 'dashboardProducts'
+    | 'dashboardVendors'
 
 export type CommonRoute = 'authLogin' | 'authLogout' | 'authSignup'

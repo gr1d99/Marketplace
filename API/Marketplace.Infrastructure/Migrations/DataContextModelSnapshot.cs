@@ -35,6 +35,9 @@ namespace marketplace_api.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
@@ -45,6 +48,9 @@ namespace marketplace_api.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -242,12 +248,6 @@ namespace marketplace_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1001L,
-                            Description = "Default Role for all Users",
-                            Name = "USER"
-                        },
-                        new
-                        {
                             Id = 10001L,
                             Description = "Default Role for all Users",
                             Name = "USER"
@@ -316,6 +316,66 @@ namespace marketplace_api.Migrations
                     b.ToTable("UserIdentitiesRoles", (string)null);
                 });
 
+            modelBuilder.Entity("Marketplace.Domain.Entities.Vendor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<long?>("UserIdentityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("VendorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserIdentityId");
+
+                    b.ToTable("Vendors", (string)null);
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.VendorProduct", b =>
+                {
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("VendorId", "ProductId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("VendorProduct");
+                });
+
             modelBuilder.Entity("Marketplace.Domain.Entities.Notification", b =>
                 {
                     b.HasOne("Marketplace.Domain.Entities.UserIdentity", "UserIdentity")
@@ -380,9 +440,42 @@ namespace marketplace_api.Migrations
                     b.Navigation("UserIdentity");
                 });
 
+            modelBuilder.Entity("Marketplace.Domain.Entities.Vendor", b =>
+                {
+                    b.HasOne("Marketplace.Domain.Entities.UserIdentity", "UserIdentity")
+                        .WithMany()
+                        .HasForeignKey("UserIdentityId");
+
+                    b.Navigation("UserIdentity");
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.VendorProduct", b =>
+                {
+                    b.HasOne("Marketplace.Domain.Entities.Product", "Product")
+                        .WithOne("VendorProduct")
+                        .HasForeignKey("Marketplace.Domain.Entities.VendorProduct", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Marketplace.Domain.Entities.Vendor", "Vendor")
+                        .WithMany("VendorProducts")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Vendor");
+                });
+
             modelBuilder.Entity("Marketplace.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("VendorProduct");
                 });
 
             modelBuilder.Entity("Marketplace.Domain.Entities.ProductStatus", b =>
@@ -404,6 +497,11 @@ namespace marketplace_api.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("UserIdentityRoles");
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.Vendor", b =>
+                {
+                    b.Navigation("VendorProducts");
                 });
 #pragma warning restore 612, 618
         }
