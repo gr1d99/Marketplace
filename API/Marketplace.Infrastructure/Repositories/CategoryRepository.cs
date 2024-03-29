@@ -21,6 +21,7 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
     public void UpdateCategory(Category category)
     {
         _dataContext.Categories.Entry(category).State = EntityState.Modified;
+        _dataContext.SaveChanges();
     }
     
     

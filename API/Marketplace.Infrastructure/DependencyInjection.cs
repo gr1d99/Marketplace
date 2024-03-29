@@ -12,6 +12,7 @@ public static class DependencyInjection
         services.AddSingleton<ICerbosProvider, CerbosProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IVendorRepository, VendorRepository>();
 
         return services;
     }

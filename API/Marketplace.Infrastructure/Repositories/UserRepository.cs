@@ -85,8 +85,8 @@ public class UserRepository : Repository<UserIdentity>, IUserRepository
 
     public void InsertUserIdentity(UserIdentity userIdentity)
     {
-        _dataContext.Add(userIdentity);
-        Save();
+        Create(userIdentity);
+        _dataContext.SaveChanges();
     }
 
     public void DeleteUserIdentity(long id)

@@ -15,6 +15,7 @@ public static class DependencyInjection
         services.AddScoped<ICerbosHandler, CerbosHandler>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IVendorService, VendorService>();
 
         return services;
     }

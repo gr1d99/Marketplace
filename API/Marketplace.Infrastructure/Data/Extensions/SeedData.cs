@@ -7,8 +7,10 @@ public static class SeedData
 {
     public static void SeedRoles(this ModelBuilder builder)
     {
-        builder.Entity<Role>().HasData(new Role()
-            { Id = 10001, Name = "USER", Description = "Default Role for all Users" });
+        builder.Entity<Role>().HasData(
+            new Role() { Id = 10001, Name = "USER", Description = "Default Role for all users" },
+            new Role() { Id = 10002, Name = "VENDOR", Description = "Default Role for all vendors" },
+            new Role() { Id = 10003, Name = "ADMIN", Description = "Default Role for all administrators" });
     }
 
     public static void SeedProductStatus(this ModelBuilder builder)

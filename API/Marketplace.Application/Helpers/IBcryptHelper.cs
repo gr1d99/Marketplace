@@ -1,6 +1,4 @@
-using System.Security.Policy;
-
-namespace Marketplace.Helpers;
+namespace Marketplace.Application.Helpers;
 
 public interface IBcryptHelper
 {

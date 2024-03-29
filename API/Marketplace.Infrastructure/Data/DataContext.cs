@@ -20,6 +20,7 @@ public class DataContext : DbContext
     public DbSet<RequestLog> RequestLogs { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserIdentityRole> UserIdentitiesRoles { get; set; }
+    public DbSet<Vendor> Vendors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

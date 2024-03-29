@@ -19,6 +19,4 @@ public class Repository<T> : IRepository<T> where T : Entity
     public void Create(T entity) => _dataContext.Set<T>().Add(entity);
     public void Update(T entity) => _dataContext.Set<T>().Update(entity);
     public void Delete(T entity) => _dataContext.Set<T>().Remove(entity);
-    public void Save() => _dataContext.SaveChanges();
-    public Task SaveAsync() => _dataContext.SaveChangesAsync();
 }

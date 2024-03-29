@@ -2,9 +2,9 @@ using Marketplace.Domain.Entities.Base;
 
 namespace Marketplace.Domain.Entities;
 
-public class Role
+public class Role : Entity
 {
-    public long Id { get; set; }
+    public new long Id { get; set; }
     public required string Name { get; set; }
     public string Description { get; set; } = String.Empty;
 

@@ -1,8 +1,10 @@
+using Marketplace.Domain.Entities.Base;
+
 namespace Marketplace.Domain.Entities;
 
-public class RefreshToken
+public class RefreshToken : Entity
 {
-    public long Id { get; set; }
+    public new long Id { get; set; }
     public string Token { get; set; } = String.Empty;
     public long? UserId { get; set; } = null!;
     public DateTime? Expiry { get; set; } = null!;

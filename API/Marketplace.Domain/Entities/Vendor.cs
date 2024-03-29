@@ -9,7 +9,6 @@ public class Vendor : Entity
     public string Name { get; set; } = String.Empty;
     public string Description { get; set; } = String.Empty;
     public long? UserIdentityId { get; set; }
-    public DateTime? DeletedAt { get; set; }
-    public UserIdentity? UserIdentity { get; set; } = new UserIdentity();
+    public UserIdentity? UserIdentity { get; set; }
     public ICollection<VendorProduct> VendorProducts { get; } = new List<VendorProduct>();
 }

@@ -65,8 +65,17 @@ namespace marketplace_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsSent")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("UserIdentityId")
                         .HasColumnType("bigint");
@@ -88,6 +97,9 @@ namespace marketplace_api.Migrations
 
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("CreatedById")
                         .HasColumnType("bigint");
@@ -119,6 +131,9 @@ namespace marketplace_api.Migrations
                     b.Property<long>("ProductStatusId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -138,6 +153,12 @@ namespace marketplace_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,6 +168,9 @@ namespace marketplace_api.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("ProductStatuses", (string)null);
@@ -155,12 +179,14 @@ namespace marketplace_api.Migrations
                         new
                         {
                             Id = 1001L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "INACTIVE",
                             ProductStatusId = new Guid("00000000-0000-0000-0000-000000000000")
                         },
                         new
                         {
                             Id = 1002L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ACTIVE",
                             ProductStatusId = new Guid("00000000-0000-0000-0000-000000000000")
                         });
@@ -233,6 +259,12 @@ namespace marketplace_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -240,6 +272,9 @@ namespace marketplace_api.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -249,8 +284,23 @@ namespace marketplace_api.Migrations
                         new
                         {
                             Id = 10001L,
-                            Description = "Default Role for all Users",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Default Role for all users",
                             Name = "USER"
+                        },
+                        new
+                        {
+                            Id = 10002L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Default Role for all vendors",
+                            Name = "VENDOR"
+                        },
+                        new
+                        {
+                            Id = 10003L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Default Role for all administrators",
+                            Name = "ADMIN"
                         });
                 });
 

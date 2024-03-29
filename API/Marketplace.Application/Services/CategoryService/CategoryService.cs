@@ -68,8 +68,6 @@ public class CategoryService : ICategoryService
         category.Description = data?.Description ?? "";
         
         _categoryRepository.UpdateCategory(category);
-
-        await _dataContext.SaveChangesAsync();
     }
     
     public async Task Delete(Guid categoryId)
@@ -84,8 +82,6 @@ public class CategoryService : ICategoryService
         category.DeletedAt = DateTime.Now;
         
         _categoryRepository.UpdateCategory(category);
-
-        await _dataContext.SaveChangesAsync();
     }
 
     public async Task<PaginatedResponseDto<CategoryDto>> GetAll(CategoryFilterDto query)

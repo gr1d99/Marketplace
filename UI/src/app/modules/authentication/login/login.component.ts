@@ -13,8 +13,8 @@ import {AuthenticationService} from "../../../services/authentication.service";
 export class LoginComponent implements OnInit {
   loading = false;
   form = this.formBuilder.group({
-    email: ['user@example.com', [Validators.email, Validators.required]],
-    password: ['string', [Validators.required]],
+    email: ['admin@marketplace.com', [Validators.email, Validators.required]],
+    password: ['admin', [Validators.required]],
   })
 
   constructor(private formBuilder: FormBuilder,

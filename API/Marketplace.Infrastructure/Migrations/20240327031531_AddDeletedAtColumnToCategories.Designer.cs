@@ -241,20 +241,6 @@ namespace Marketplace.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1001L,
-                            Description = "Default Role for all Users",
-                            Name = "USER"
-                        },
-                        new
-                        {
-                            Id = 10001L,
-                            Description = "Default Role for all Users",
-                            Name = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Marketplace.Domain.Entities.UserIdentity", b =>

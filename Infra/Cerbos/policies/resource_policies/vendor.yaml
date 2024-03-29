@@ -1,0 +1,19 @@
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "dev"
+  resource: "vendor"
+  rules:
+    - actions:
+        - create
+        - getall
+        - getone
+        - destroy
+        - update
+      effect: EFFECT_ALLOW
+      roles:
+        - ADMIN
+
+    # - actions: ["*"]
+    #   effect: EFFECT_DENY
+    #   roles:
+    #     - USER

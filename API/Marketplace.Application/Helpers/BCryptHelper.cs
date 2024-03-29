@@ -1,4 +1,4 @@
-namespace Marketplace.Helpers;
+namespace Marketplace.Application.Helpers;
 
 public class BCryptHelper : IBcryptHelper
 {
