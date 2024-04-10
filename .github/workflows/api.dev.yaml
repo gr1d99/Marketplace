@@ -5,8 +5,8 @@ on: push
 jobs:
   automated-api-tests:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
-      - environment: dev
       - uses: actions/checkout@v3
       - name: Install Postman CLI
         run: |
