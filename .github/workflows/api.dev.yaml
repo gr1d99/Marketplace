@@ -4,8 +4,8 @@ on: push
 
 jobs:
   automated-api-tests:
-    runs-on: ubuntu-latest
     environment: dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install Postman CLI
@@ -15,5 +15,4 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          # Lint your API using Postman CLI
-          postman api lint 4ef9b839-b232-437d-a382-980537b3f3ce --integration-id 161318
+          postman collection run "6342414-a0e9fbbe-25c6-441b-b980-34f67f80ac26" -e "6342414-17a76e3e-17f5-49fd-827c-8250435dd19c" --integration-id "161320-${{ github.run_id }}"
