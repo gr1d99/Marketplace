@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "eb8297ed-f7b1-4784-879c-4f05fc82832b",
+		"_postman_id": "d78bd2bd-43b1-4cee-b272-7a381089d4fd",
 		"name": "MarketplaceAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "6342414"
+		"_uid": "6342414-d78bd2bd-43b1-4cee-b272-7a381089d4fd"
 	},
 	"item": [
 		{
@@ -21,10 +21,12 @@
 									"});"
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"id": "95c8db79-a713-49fa-b9e2-dea9e0f5e745"
 							}
 						}
 					],
+					"id": "2122e160-f423-432f-8cbb-13e2aabf07e9",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -50,7 +52,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"id": "167c86d4-e79c-4dd7-8eab-f71083a1700a"
 		}
 	]
 }
