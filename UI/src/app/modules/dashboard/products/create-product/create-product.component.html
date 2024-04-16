@@ -1,10 +1,10 @@
 <div nz-row [nzGutter]="{ xs: 24, md: 12 }">
-    <div nz-col [nzXs]="{ span: 24, offset: 0 }" [nzMd]="{ span: 12, offset: 6 }">
-        <app-dashboard-header [title]="pageTitle"></app-dashboard-header>
-        <app-product-form
-                [submitting]="submitting"
-                (formSubmitted)="onCreateProduct($event)">
-        </app-product-form>
-    </div>
+  <div nz-col [nzXs]="{ span: 24, offset: 0 }" [nzMd]="{ span: 12, offset: 6 }">
+    <app-dashboard-header [title]="pageTitle"></app-dashboard-header>
+    <app-product-form
+      [submitting]="submitting"
+      (formSubmitted)="onCreateProduct($event)"
+    >
+    </app-product-form>
+  </div>
 </div>
-

@@ -19,4 +19,12 @@ public static class SeedData
             new ProductStatus { Id = 1001, Name = "INACTIVE", ProductStatusId = new Guid() },
             new ProductStatus { Id = 1002, Name = "ACTIVE", ProductStatusId = new Guid() });
     }
+    
+    public static void SeedVendorStatus(this ModelBuilder builder)
+    {
+        builder.Entity<VendorStatus>().HasData(
+            new VendorStatus() { Id = 1001, Name = "PENDING APPROVAL", VendorStatusId = new Guid() },
+            new VendorStatus() { Id = 1002, Name = "APPROVED", VendorStatusId = new Guid() },
+            new VendorStatus() { Id = 1003, Name = "SUSPENDED", VendorStatusId = new Guid() });
+    }
 }

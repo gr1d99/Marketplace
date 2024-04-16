@@ -39,5 +39,6 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new VendorProductConfiguration());
         modelBuilder.SeedProductStatus();
         modelBuilder.SeedRoles();
+        modelBuilder.SeedVendorStatus();
     }
 }

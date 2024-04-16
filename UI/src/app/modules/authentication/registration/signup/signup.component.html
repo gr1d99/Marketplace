@@ -4,96 +4,72 @@
       <form
         nz-form
         [formGroup]="form"
-        (ngSubmit)="submitForm()" nzLayout="vertical">
+        (ngSubmit)="submitForm()"
+        nzLayout="vertical"
+      >
         <div class="primary-contact-item">
-        <nz-form-item>
-          <nz-form-label
-            nzFor="email"
-            nzRequired>
-            Email
-          </nz-form-label>
-          <nz-form-control nzErrorTip="Enter a valid E-mail!">
-            <input
-              type="email"
-              id="email"
-              formControlName="email"
-              nz-input />
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label
-            nzFor="phone"
-            nzRequired>
-            Phone
-          </nz-form-label>
-          <nz-form-control nzErrorTip="Enter a valid Phone!">
-            <input
-              type="text"
-              id="phone"
-              formControlName="phone"
-              nz-input />
-          </nz-form-control>
-        </nz-form-item>
-        </div>
-        <nz-form-item>
-            <nz-form-label
-              nzFor="firstName"
-              nzRequired>
-              First Name
-            </nz-form-label>
-            <nz-form-control
-              nzErrorTip="First name is required!">
-              <input
-                type="text"
-                id="firstName"
-                formControlName="firstName"
-                nz-input />
+          <nz-form-item>
+            <nz-form-label nzFor="email" nzRequired> Email </nz-form-label>
+            <nz-form-control nzErrorTip="Enter a valid E-mail!">
+              <input type="email" id="email" formControlName="email" nz-input />
             </nz-form-control>
           </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzFor="phone" nzRequired> Phone </nz-form-label>
+            <nz-form-control nzErrorTip="Enter a valid Phone!">
+              <input type="text" id="phone" formControlName="phone" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
         <nz-form-item>
-          <nz-form-label
-            nzFor="lastName"
-            nzRequired>
-            Last Name
+          <nz-form-label nzFor="firstName" nzRequired>
+            First Name
           </nz-form-label>
-          <nz-form-control
-            nzErrorTip="Last name is required!">
+          <nz-form-control nzErrorTip="First name is required!">
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              nz-input
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="lastName" nzRequired> Last Name </nz-form-label>
+          <nz-form-control nzErrorTip="Last name is required!">
             <input
               type="text"
               id="lastName"
               formControlName="lastName"
-              nz-input />
+              nz-input
+            />
           </nz-form-control>
         </nz-form-item>
         <div class="password-item">
           <nz-form-item>
-            <nz-form-label
-              nzFor="password"
-              nzRequired>
+            <nz-form-label nzFor="password" nzRequired>
               Password
             </nz-form-label>
-            <nz-form-control
-              nzErrorTip="Password is required!">
+            <nz-form-control nzErrorTip="Password is required!">
               <input
                 type="password"
                 id="password"
                 formControlName="password"
-                nz-input />
+                nz-input
+              />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label
-              nzFor="confirmPassword"
-              nzRequired>
+            <nz-form-label nzFor="confirmPassword" nzRequired>
               Confirm Password
             </nz-form-label>
-            <nz-form-control
-              [nzErrorTip]="confirmPasswordErrorTp">
+            <nz-form-control [nzErrorTip]="confirmPasswordErrorTp">
               <input
                 type="password"
                 id="confirmPassword"
                 formControlName="confirmPassword"
-                nz-input />
+                nz-input
+              />
             </nz-form-control>
             <ng-template #confirmPasswordErrorTp let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -112,7 +88,8 @@
             variant="primary"
             [fullWidth]="true"
             [loading]="loading"
-            [disabled]="loading">
+            [disabled]="loading"
+          >
           </app-button>
           <div class="divider">
             <p>or</p>
@@ -123,7 +100,9 @@
             variant="text"
             [fullWidth]="true"
             [loading]="loading"
-            [disabled]="loading" (onClick)="navigateToLogin()">
+            [disabled]="loading"
+            (onClick)="navigateToLogin()"
+          >
           </app-button>
         </div>
       </form>

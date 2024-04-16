@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { UpdateCategoryComponent } from './update-category.component';
+import { UpdateCategoryComponent } from "./update-category.component";
 
-describe('UpdateCategoryComponent', () => {
+describe("UpdateCategoryComponent", () => {
   let component: UpdateCategoryComponent;
   let fixture: ComponentFixture<UpdateCategoryComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpdateCategoryComponent]
+      declarations: [UpdateCategoryComponent],
     });
     fixture = TestBed.createComponent(UpdateCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

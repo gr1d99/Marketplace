@@ -3,6 +3,6 @@ export interface Category {
   readonly categoryId: string;
   name: string;
   description: string;
-  deletedAt: string
+  deletedAt: string;
 }
-export type CategoryFormData = Required<Pick<Category, 'name' | 'description'>>;
+export type CategoryFormData = Required<Pick<Category, "name" | "description">>;

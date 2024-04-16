@@ -1,69 +1,82 @@
 <app-dashboard-header [title]="pageTitle">
-    <nz-space>
-        <button
-                *nzSpaceItem
-                class="products-list-add-product-btn"
-                nz-button
-                nzType="primary"
-                (click)="onAddUpdateCategoryClick()">Add Category</button>
-    </nz-space>
+  <nz-space>
+    <button
+      *nzSpaceItem
+      class="products-list-add-product-btn"
+      nz-button
+      nzType="primary"
+      (click)="onAddUpdateCategoryClick()"
+    >
+      Add Category
+    </button>
+  </nz-space>
 </app-dashboard-header>
 <section class="categories-list">
-    <nz-table
-        #basicTable
-        [nzData]="categories.results"
-        [nzLoading]="loading || deletingCategory"
-        [nzFrontPagination]="false"
-        [nzTotal]="categories.total"
-        [nzPageSize]="categoryParams.limit"
-        [nzPageIndex]="categoryParams.page"
-        [nzShowSizeChanger]="true"
-        (nzQueryParams)="onQueryParamsChange($event)" [nzScroll]="{ x: '360px' }">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Deleted</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let data of categories.results">
-            <td>{{ data.name }}</td>
-            <td>{{ data.description }}</td>
-            <td>
-        <span nz-icon
-              [nzType]="isDeleted(data) ? 'close-circle' : 'check-circle'"
-              [nzTheme]="'twotone'"
-              [nzTwotoneColor]="isDeleted(data) ? '#C41A1AFF' : '#3fc41a'">
-        </span>
-            </td>
-            <td>
-                <a (click)="onAddUpdateCategoryClick('UPDATE', data.categoryId)">Edit</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a
-                        nz-popconfirm
-                        nzPopconfirmTitle="Sure to delete?"
-                        (nzOnConfirm)="deleteCategory(data.categoryId)">Delete
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </nz-table>
+  <nz-table
+    #basicTable
+    [nzData]="categories.results"
+    [nzLoading]="loading || deletingCategory"
+    [nzFrontPagination]="false"
+    [nzTotal]="categories.total"
+    [nzPageSize]="categoryParams.limit"
+    [nzPageIndex]="categoryParams.page"
+    [nzShowSizeChanger]="true"
+    (nzQueryParams)="onQueryParamsChange($event)"
+    [nzScroll]="{ x: '360px' }"
+  >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Deleted</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of categories.results">
+        <td>{{ data.name }}</td>
+        <td>{{ data.description }}</td>
+        <td>
+          <span
+            nz-icon
+            [nzType]="isDeleted(data) ? 'close-circle' : 'check-circle'"
+            [nzTheme]="'twotone'"
+            [nzTwotoneColor]="isDeleted(data) ? '#C41A1AFF' : '#3fc41a'"
+          >
+          </span>
+        </td>
+        <td>
+          <a (click)="onAddUpdateCategoryClick('UPDATE', data.categoryId)"
+            >Edit</a
+          >
+          <nz-divider nzType="vertical"></nz-divider>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Sure to delete?"
+            (nzOnConfirm)="deleteCategory(data.categoryId)"
+            >Delete
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </section>
 <app-modal
-        [isVisible]="categoryModalVisible"
-        [handleCancel]="cancel"
-        [handleOk]="cancel"
-        [title]="categoryModalTitle"
-        [showFooter]="false"
-        [isOkLoading]="loading">
-    <app-create-category
-            *ngIf="(categoryAction | async) === 'CREATE'"
-            (onCategoryChange)="categoryChanged($event)">
-    </app-create-category>
-    <app-update-category
-            *ngIf="(categoryAction | async) === 'UPDATE'"
-            (onCategoryChange)="categoryChanged($event)">
-    </app-update-category>
+  [isVisible]="categoryModalVisible"
+  [handleCancel]="cancel"
+  [handleOk]="cancel"
+  [title]="categoryModalTitle"
+  [showFooter]="false"
+  [isOkLoading]="loading"
+>
+  <app-create-category
+    *ngIf="(categoryAction | async) === 'CREATE'"
+    (onCategoryChange)="categoryChanged($event)"
+  >
+  </app-create-category>
+  <app-update-category
+    *ngIf="(categoryAction | async) === 'UPDATE'"
+    (onCategoryChange)="categoryChanged($event)"
+  >
+  </app-update-category>
 </app-modal>

@@ -1,54 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {FormService} from "../../../services/shared/form.service";
-import {Router} from "@angular/router";
-import {APP_ROUTES} from "../../../shared/constanst";
-import {AuthenticationService} from "../../../services/authentication.service";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { FormService } from "../../../services/shared/form.service";
+import { Router } from "@angular/router";
+import { APP_ROUTES } from "../../../shared/constanst";
+import { AuthenticationService } from "../../../services/authentication.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   loading = false;
   form = this.formBuilder.group({
-    email: ['admin@marketplace.com', [Validators.email, Validators.required]],
-    password: ['admin', [Validators.required]],
-  })
+    email: ["admin@marketplace.com", [Validators.email, Validators.required]],
+    password: ["admin", [Validators.required]],
+  });
 
-  constructor(private formBuilder: FormBuilder,
-              private formService: FormService,
-              private router: Router,
-              private authenticationService: AuthenticationService) {
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private formService: FormService,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+  ) {}
 
   submit() {
     const { valid } = this.form;
 
     if (!valid) {
-      return this.formService.markFieldsInvalid(this.form)
+      return this.formService.markFieldsInvalid(this.form);
     }
 
-    const data: { email: string, password: string } = {
+    const data: { email: string; password: string } = {
       email: this.form.value.email!,
-      password: this.form.value.password!
-    }
+      password: this.form.value.password!,
+    };
 
-    this.authenticationService.authenticate(data)
+    this.authenticationService.authenticate(data);
   }
 
   redirectToSignup() {
-    this.router.navigate([APP_ROUTES.signup])
+    this.router.navigate([APP_ROUTES.signup]);
   }
 
   ngOnInit(): void {
-    this.authenticationService.isAuthenticated.subscribe(isAuthenticated => {
+    this.authenticationService.isAuthenticated.subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        this.router.navigate([APP_ROUTES.index])
+        this.router.navigate([APP_ROUTES.index]);
       }
 
       // redirect to appropriate page
-    })
+    });
   }
 }

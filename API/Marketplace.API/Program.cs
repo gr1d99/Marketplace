@@ -27,6 +27,7 @@ using Marketplace.Services;
 using Marketplace.Infrastructure.Data;
 using Marketplace.Infrastructure.Filters;
 using Marketplace.Services.AuthServiceService;
+using Org.BouncyCastle.Asn1.Cms;
 
 // logging
 using Serilog;
@@ -112,7 +113,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!)),
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = true
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -139,10 +141,7 @@ var app = builder.Build();
 
 app.UseForwardedHeaders();
 
-if (app.Environment.IsProduction())
-{
-    app.UseAllElasticApm(builder.Configuration);
-}
+app.UseAllElasticApm(builder.Configuration);
 
 if (app.Environment.IsDevelopment())
 {

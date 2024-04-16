@@ -6,9 +6,10 @@
   [nzLoading]="loading"
   [disabled]="disabled"
   (click)="onButtonClick()"
-  [type]="variant === 'link' || variant === 'text' ? 'button': ''">
+  [type]="variant === 'link' || variant === 'text' ? 'button' : ''"
+>
   <ng-container *ngIf="icon">
     <span nz-icon [nzType]="icon"></span>
   </ng-container>
-  {{label}}
+  {{ label }}
 </button>

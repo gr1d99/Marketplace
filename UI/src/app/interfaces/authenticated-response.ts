@@ -1,4 +1,4 @@
 export interface AuthenticatedResponse {
-  jwtToken: string,
-  refreshToken: string
+  jwtToken: string;
+  refreshToken: string;
 }

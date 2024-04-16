@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NavItemComponent } from './nav-item.component';
+import { NavItemComponent } from "./nav-item.component";
 
-describe('NavItemComponent', () => {
+describe("NavItemComponent", () => {
   let component: NavItemComponent;
   let fixture: ComponentFixture<NavItemComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavItemComponent]
+      declarations: [NavItemComponent],
     });
     fixture = TestBed.createComponent(NavItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

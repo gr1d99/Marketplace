@@ -1,16 +1,18 @@
 <nz-spin [nzSpinning]="loading">
-    <div nz-row [nzGutter]="{ xs: 24, md: 12 }">
-        <div nz-col [nzXs]="{ span: 24, offset: 0 }" [nzMd]="{ span: 12, offset: 6 }">
-            <app-dashboard-header [title]="pageTitle"></app-dashboard-header>
-            <app-product-form
-                    [product]="product"
-                    [submitLabel]="'Update Product'"
-                    [submitting]="submitting"
-                    (formSubmitted)="onUpdateProduct($event)">
-            </app-product-form>
-        </div>
+  <div nz-row [nzGutter]="{ xs: 24, md: 12 }">
+    <div
+      nz-col
+      [nzXs]="{ span: 24, offset: 0 }"
+      [nzMd]="{ span: 12, offset: 6 }"
+    >
+      <app-dashboard-header [title]="pageTitle"></app-dashboard-header>
+      <app-product-form
+        [product]="product"
+        [submitLabel]="'Update Product'"
+        [submitting]="submitting"
+        (formSubmitted)="onUpdateProduct($event)"
+      >
+      </app-product-form>
     </div>
+  </div>
 </nz-spin>
-
-
-

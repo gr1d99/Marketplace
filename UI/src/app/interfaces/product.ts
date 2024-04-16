@@ -1,5 +1,5 @@
-import {Category} from "./category";
-import {ProductStatus} from "./product-status";
+import { type Category } from './category';
+import { type ProductStatus } from './product-status';
 
 export interface Product {
   readonly id: number;
@@ -10,7 +10,7 @@ export interface Product {
   discountedPrice: number;
   deletedAt?: string | null;
   categoryId: number;
-  category: Category,
+  category: Category;
   productStatusId: number;
-  productStatus: ProductStatus
+  productStatus: ProductStatus;
 }

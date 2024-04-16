@@ -1,46 +1,35 @@
-<form
-        nz-form
-        [formGroup]="form"
-        (ngSubmit)="submit()" nzLayout="vertical">
-    <div>
-        <nz-form-item>
-            <nz-form-label
-                    nzFor="name"
-                    nzRequired>
-                Name
-            </nz-form-label>
-            <nz-form-control nzErrorTip="Category name is required!">
-                <input
-                        type="text"
-                        id="name"
-                        formControlName="name"
-                        nz-input />
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label
-                    nzFor="description"
-                    nzRequired>
-                Description
-            </nz-form-label>
-            <nz-form-control nzErrorTip="Category description is required!">
-                <textarea
-                        rows="2"
-                        id="description"
-                        formControlName="description"
-                        nz-input>
-                </textarea>
-            </nz-form-control>
-        </nz-form-item>
-    </div>
-    <div class="action-section">
-        <app-button
-                type="submit"
-                [label]="(isUpdate ? 'Update' : 'Create') + ' Category'"
-                variant="primary"
-                [fullWidth]="true"
-                [loading]="loading"
-                [disabled]="loading">
-        </app-button>
-    </div>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" nzLayout="vertical">
+  <div>
+    <nz-form-item>
+      <nz-form-label nzFor="name" nzRequired> Name </nz-form-label>
+      <nz-form-control nzErrorTip="Category name is required!">
+        <input type="text" id="name" formControlName="name" nz-input />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="description" nzRequired>
+        Description
+      </nz-form-label>
+      <nz-form-control nzErrorTip="Category description is required!">
+        <textarea
+          rows="2"
+          id="description"
+          formControlName="description"
+          nz-input
+        >
+        </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div class="action-section">
+    <app-button
+      type="submit"
+      [label]="(isUpdate ? 'Update' : 'Create') + ' Category'"
+      variant="primary"
+      [fullWidth]="true"
+      [loading]="loading"
+      [disabled]="loading"
+    >
+    </app-button>
+  </div>
 </form>

@@ -403,9 +403,14 @@ namespace marketplace_api.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<long?>("VendorStatusId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserIdentityId");
+
+                    b.HasIndex("VendorStatusId");
 
                     b.ToTable("Vendors", (string)null);
                 });
@@ -424,6 +429,58 @@ namespace marketplace_api.Migrations
                         .IsUnique();
 
                     b.ToTable("VendorProduct");
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.VendorStatus", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("VendorStatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VendorStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1001L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PENDING APPROVAL",
+                            VendorStatusId = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = 1002L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "APPROVED",
+                            VendorStatusId = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = 1003L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "SUSPENDED",
+                            VendorStatusId = new Guid("00000000-0000-0000-0000-000000000000")
+                        });
                 });
 
             modelBuilder.Entity("Marketplace.Domain.Entities.Notification", b =>
@@ -496,7 +553,13 @@ namespace marketplace_api.Migrations
                         .WithMany()
                         .HasForeignKey("UserIdentityId");
 
+                    b.HasOne("Marketplace.Domain.Entities.VendorStatus", "VendorStatus")
+                        .WithMany("Vendors")
+                        .HasForeignKey("VendorStatusId");
+
                     b.Navigation("UserIdentity");
+
+                    b.Navigation("VendorStatus");
                 });
 
             modelBuilder.Entity("Marketplace.Domain.Entities.VendorProduct", b =>
@@ -552,6 +615,11 @@ namespace marketplace_api.Migrations
             modelBuilder.Entity("Marketplace.Domain.Entities.Vendor", b =>
                 {
                     b.Navigation("VendorProducts");
+                });
+
+            modelBuilder.Entity("Marketplace.Domain.Entities.VendorStatus", b =>
+                {
+                    b.Navigation("Vendors");
                 });
 #pragma warning restore 612, 618
         }

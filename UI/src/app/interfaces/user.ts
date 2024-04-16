@@ -7,4 +7,5 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
-export interface NewUser extends Omit<User, 'id' | 'userId' | 'createdAt' | 'updatedAt'> {}
+export interface NewUser
+  extends Omit<User, 'id' | 'userId' | 'createdAt' | 'updatedAt'> {}

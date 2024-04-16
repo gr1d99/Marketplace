@@ -1,3 +1,3 @@
 export interface Environment {
-  ApiBaseUrl: string
+  ApiBaseUrl: string;
 }
